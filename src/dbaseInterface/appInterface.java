@@ -16,7 +16,7 @@ public interface appInterface
 
     public void addRating(int appID, int userID, int rating);
 
-    public void addComment(int appID, int userID, int rating);
+    public void addComment(int appID, int userID, String comment);
 
     public void addApp(appDetails app);
 
