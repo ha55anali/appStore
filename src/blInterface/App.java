@@ -5,11 +5,11 @@ import java.util.*;
 
 public class App
 {
-    int AppID;
-    int Version;
-    List<Integer> Ratings;
-    int avgRatings;
-    List<String> Reviews;
+    public int AppID;
+    public int Version;
+    public List<Integer> Ratings;
+    public int avgRatings;
+    public List<String> Reviews;
 
     public App(int ID, int Ver, List<Integer> UserRatings, int aRating, List<String> UserReviews )
     {

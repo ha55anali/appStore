@@ -4,11 +4,11 @@ import java.util.*;
 
 public class appDetails
 {
-    int AppID;
-    int Version;
-    List<Integer> Ratings;
-    int avgRatings;
-    List<String> Reviews;
+    public int AppID;
+    public int Version;
+    public List<Integer> Ratings;
+    public int avgRatings;
+    public List<String> Reviews;
 
     public appDetails(int ID, int Ver, List<Integer> UserRatings, int aRating, List<String> UserReviews )
     {

@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 class userDetails
 {
-    String Name;
-    int userID;
-    LocalDate DOB;
-    String password;
-    String email;
+    public String Name;
+    public int userID;
+    public LocalDate DOB;
+    public String password;
+    public String email;
 }
