@@ -1,6 +1,6 @@
 package dbaseInterface;
 
-public class App implements appInterface {
+public class App {
 
     
     //made this main() to test the functions ill be making in this class
