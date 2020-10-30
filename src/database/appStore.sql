@@ -11,7 +11,7 @@ name VARCHAR(50) NOT NULL,
 version FLOAT NOT NULL,
 category VARCHAR(50) NOT NULL,
 avg_rating FLOAT, 
-PRIMARY KEY(app_ID, version)
+PRIMARY KEY(app_ID)
 )
 
 CREATE TABLE user_details(
@@ -49,3 +49,97 @@ FOREIGN KEY(user_ID) REFERENCES user_details(user_ID),
 PRIMARY KEY(app_ID, user_ID)
 )
 
+--PROCEDURE FOR USER SIGNUP
+CREATE PROCEDURE signup @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE
+as
+Begin
+	if (@email is not null)
+	begin
+	 if(@password is not null)
+	 begin
+	  if(@name is not null)
+	  begin
+	   if(@date_of_birth is not null)
+	   begin
+		  if not exists(select * from user_details where @email = user_details.email)
+		  begin
+		  insert into user_details(name,email,password,date_of_birth) values (@name, @email, @password, @date_of_birth)
+		  end
+		  else
+		  RAISERROR('User Account is already present!',16,1)
+		  end
+	     else
+	     RAISERROR('Date of Birth is incorrect!',16,1)
+	   end
+	   else
+	   RAISERROR('Name is incorrect!',16,1)
+	 end
+	 else
+	 RAISERROR('Password is incorrect!',16,1)
+	end
+	else
+	RAISERROR('Email is incorrect!',16,1)
+End
+
+-- PROCEDURE FOR USER SIGNIN
+create procedure signin @email varchar(50),@password varchar(20)
+as
+Begin
+	if (@email is not null)
+	begin
+	 if(@password is not null)
+	 begin
+	    if not exists(select * from user_details where @email=email)
+		RAISERROR('User does not exist',16,1)
+		else
+			begin
+			  if not exists(select * from user_details where @email=email and [password]=@password)
+			  RAISERROR('Password is incorrect',16,1)
+			end
+		end
+	 else
+	 RAISERROR('Invalid password',16,1)
+	end
+	else
+	RAISERROR('Invalid username',16,1)
+END
+
+--PROCEDURE FOR ADDING APP
+create procedure add_App @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50)
+as
+Begin
+if(@name is not null and not exists(select * from app_details where @name = app_details.name))
+begin 
+	if(@version is not null)
+	begin 
+		if(@category is not null)
+		begin 
+			 insert into app_details(name,version,category,avg_rating) values(@name, @version, @category, NULL)
+		end
+		else
+		RAISERROR('Catergory Not Entered',16,1)
+	end
+	else
+	RAISERROR('Version Not Entered',16,1)
+end
+else
+RAISERROR('Application Already Exists',16,1)
+end
+
+-- TO GET APP ID, THIS ACTS AS A HELPER FUNCTION
+Create procedure getAppId @appname varchar(50),@version int,@appId int output
+As
+Begin
+	set @appId=(select app_ID
+	from app_details
+	where name=@appname and version=@version)
+End
+
+-- TO GET USER ID, THIS ACTS AS A HELPER FUNCTION
+Create procedure getUserId @email varchar(50), @userId int output
+As
+Begin
+	set @userId=(select user_details.user_ID 
+	from user_details
+	where user_details.email = @email)
+End
