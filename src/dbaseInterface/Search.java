@@ -4,7 +4,10 @@ public class Search {
     
     public static int binarySearch(int [] arr, int key, int left, int right) {
         
-        if(left > right) return -1;
+        if(left > right) {
+            throw new IllegalArgumentException("Array_Limits_Exception");
+        }
+        
         int mid = (right + left) / 2;
         if(arr[mid] == key) return mid;
         if(left == right ) {
