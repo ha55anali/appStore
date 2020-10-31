@@ -34,7 +34,7 @@ default: classes
 classes: $(CLASSES:.java=.class)
 
 clean:
-	$(RM) *.class
+	find -name "*.class" | xargs -I if mv -v if ~/.trash
 	
 run:
 	java test
