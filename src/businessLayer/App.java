@@ -12,11 +12,7 @@ class App implements blInterface.appInterface {
     }
 
     public blInterface.App showDetails(int AppID) {
-        dbaseInterface.appDetails app = dbApp.getAppDetails(AppID);
-
-        blInterface.App appDet = new blInterface.App(app.AppID, app.Version, app.Ratings, app.avgRatings, app.Reviews);
-
-        return appDet;
+        return returnblApp(AppID);
     }
 
     public List<blInterface.App> showAllApps() {
@@ -44,4 +40,11 @@ class App implements blInterface.appInterface {
     public void addRating(int AppID, int userID, int rating) {
     }
 
+    private blInterface.App returnblApp(int AppID) {
+        dbaseInterface.appDetails app = dbApp.getAppDetails(AppID);
+
+        blInterface.App appDet = new blInterface.App(app.AppID, app.Version, app.Ratings, app.avgRatings, app.Reviews);
+
+        return appDet;
+    }
 }
