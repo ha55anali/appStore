@@ -10,38 +10,32 @@ public class User implements blInterface.userInterface {
     }
 
     public void addUser(blInterface.userDetails user) {
-        dbaseInterface.userDetails userdetails = new dbaseInterface.userDetails();
-        userdetails.Name = user.Name;
-        userdetails.DOB = user.DOB;
-        userdetails.email = user.email;
-        userdetails.password = user.password;
-        userdetails.userID = user.userID;
+        dbaseInterface.userDetails userdetails = new dbaseInterface.userDetails(user.Name, user.userID, user.DOB,
+                user.email, user.password);
         dbUser.addUser(userdetails);
-        return;
     }
 
     public void removeUser(int userID) {
-
-        return;
+        dbUser.removeUser(userID);
     }
 
     public void authenticateUser(int userID, String password) {
-
+        dbUser.authenticateUser(userID);
     }
 
     public void addCard(int cardNo, int ExpYear) {
-
+        dbUser.addCard(cardNo, ExpYear);
     }
 
     public void setPaymentMethod(String method) {
-
+        dbUser.setPaymentMethod(method);
     }
 
     public void changeCardDetails(int cardNo, int NewExpYear) {
-
+        dbUser.changeCardDetails(cardNo, NewExpYear);
     }
 
     public void removeCardDetails(int cardNo) {
-
+        dbUser.removeCardDetails(cardNo);
     }
 }
