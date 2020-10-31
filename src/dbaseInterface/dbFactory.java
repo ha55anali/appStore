@@ -2,7 +2,7 @@ package dbaseInterface;
 
 public class dbFactory {
     public static appInterface getAppObject() {
-        return null;
+        return new businessLayer.tests.dummyDB();
     }
 
     public static devInterface getDevObject() {

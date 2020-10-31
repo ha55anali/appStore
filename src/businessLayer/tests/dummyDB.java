@@ -8,13 +8,18 @@ public class dummyDB implements appInterface {
     public appDetails getAppDetails(int appID) {
         if (appID == 5)
             return new appDetails(1, 1, new ArrayList<Integer>(), 0, new ArrayList<String>());
+        else if (appID == 10)
+            return new appDetails(2, 2, new ArrayList<Integer>(), 0, new ArrayList<String>());
         else
             throw new IllegalArgumentException("hello");
     }
 
     // return appIds of all apps
     public List<Integer> getAllApps() {
-        return null;
+        List<Integer> a = new ArrayList<Integer>();
+        a.add(5);
+        a.add(10);
+        return a;
     }
 
     // returns all appIds in the category

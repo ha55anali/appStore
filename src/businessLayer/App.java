@@ -12,15 +12,22 @@ class App implements blInterface.appInterface {
     }
 
     public blInterface.App showDetails(int AppID) {
-        dbaseInterface.appDetails app = dbApp.getAppDetails(AppID);
-
-        blInterface.App appDet = new blInterface.App(app.AppID, app.Version, app.Ratings, app.avgRatings, app.Reviews);
-
-        return appDet;
+        return returnblApp(AppID);
     }
 
     public List<blInterface.App> showAllApps() {
-        return null;
+        //get list of AppIDs
+        List<Integer> appList = dbApp.getAllApps();
+
+        List<blInterface.App> apps = new ArrayList<blInterface.App>();
+        for (int i: appList)
+            apps.add(returnblApp(i));
+
+        return apps;
+        // List<int> apps=new ArrayList<Integer>();
+        // for(int i : appList)
+        //     Ratings.add(i);
+        // return apps;
     }
 
     public List<blInterface.App> showAppsinCategory(String Category) {
@@ -44,4 +51,11 @@ class App implements blInterface.appInterface {
     public void addRating(int AppID, int userID, int rating) {
     }
 
+    private blInterface.App returnblApp(int AppID) {
+        dbaseInterface.appDetails app = dbApp.getAppDetails(AppID);
+
+        blInterface.App appDet = new blInterface.App(app.AppID, app.Version, app.Ratings, app.avgRatings, app.Reviews);
+
+        return appDet;
+    }
 }
