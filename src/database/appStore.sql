@@ -101,7 +101,7 @@ Begin
 	 RAISERROR('Invalid password',16,1)
 	end
 	else
-	RAISERROR('Invalid username',16,1)
+	RAISERROR('Invalid email',16,1)
 END
 
 --PROCEDURE FOR ADDING APP
@@ -143,3 +143,50 @@ Begin
 	from user_details
 	where user_details.email = @email)
 End
+
+--PROCEDURE FOR getUSERDETAILS
+create procedure get_User_Details @userId INT
+as
+Begin
+	if(@userId is not null and exists(select * from user_details where @userID = user_details.user_ID))
+	begin
+		select * from user_details where @userId = user_details.user_ID	
+	end
+	else
+	RAISERROR('User Not Exists',16,1)
+END
+
+--PROCEDURE FOR ADDINSTALLED APP FOR USER
+create procedure add_Installed_App @appId INT ,@userID INT
+as
+Begin
+if(@appId is not null and exists(select * from app_details where @appId = app_details.app_ID))
+begin 
+	if(@userID is not null and exists(select * from user_details where @userID = user_details.user_ID))
+	begin 
+		insert into user_apps(app_ID,user_ID) values(@appId, @userID)
+	end
+	else
+	RAISERROR('User Not Exists',16,1)
+end
+else
+RAISERROR('Application Not Exists',16,1)
+end
+
+--PROCEDURE FOR REMOVEINSTALLED APP FOR USER
+create procedure remove_Installed_App @appId INT ,@userID INT
+as
+Begin
+if(@appId is not null and exists(select * from app_details where @appId = app_details.app_ID))
+begin 
+	if(@userID is not null and exists(select * from user_details where @userID = user_details.user_ID))
+	begin 
+		if(exists (select * from user_apps where @userID = user_apps.user_ID and @appId = user_apps.app_ID))
+		   delete from user_apps where @userID = user_apps.user_ID and @appId = user_apps.app_ID
+	end
+	else
+	RAISERROR('User Not Exists',16,1)
+end
+else
+RAISERROR('Application Not Exists',16,1)
+end
