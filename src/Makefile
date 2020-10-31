@@ -7,7 +7,7 @@ JC = javac
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
-	   test.java \
+	   businessLayer/tests/test.java \
 	   businessLayer/blFactory.java \
 	   dbaseInterface/devInterface.java \
 	   businessLayer/individualAppInterface.java \
