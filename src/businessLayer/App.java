@@ -16,7 +16,18 @@ class App implements blInterface.appInterface {
     }
 
     public List<blInterface.App> showAllApps() {
-        return null;
+        //get list of AppIDs
+        List<Integer> appList = dbApp.getAllApps();
+
+        List<blInterface.App> apps = new ArrayList<blInterface.App>();
+        for (int i: appList)
+            apps.add(returnblApp(i));
+
+        return apps;
+        // List<int> apps=new ArrayList<Integer>();
+        // for(int i : appList)
+        //     Ratings.add(i);
+        // return apps;
     }
 
     public List<blInterface.App> showAppsinCategory(String Category) {
