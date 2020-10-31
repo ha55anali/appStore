@@ -7,9 +7,11 @@ class test {
             blInterface.userDetails u = new blInterface.userDetails("nushiPishi", 1, LocalDate.now(), "nushi@pishi.com",
                     "yibz6969");
             userInt.addUser(u);
+            userInt.removeUser(u.userID);
             System.out.println(u.Name);
+
         } catch (Exception e) {
-            System.out.println("HMMMM");
+            System.out.println(e.getMessage());
         }
     }
 
