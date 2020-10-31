@@ -101,7 +101,7 @@ Begin
 	 RAISERROR('Invalid password',16,1)
 	end
 	else
-	RAISERROR('Invalid username',16,1)
+	RAISERROR('Invalid email',16,1)
 END
 
 --PROCEDURE FOR ADDING APP
