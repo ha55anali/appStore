@@ -6,7 +6,7 @@ class test {
         System.out.println("oe");
         blInterface.appInterface ap = businessLayer.blFactory.getAppObject();
         try {
-            List<blInterface.App> a = ap.showAllApps();
+            List<blInterface.App> a = ap.showAppsinCategory("a");
             System.out.println(a.get(0).AppID);
             System.out.println(a.get(1).AppID);
         } catch (IllegalArgumentException e) {
