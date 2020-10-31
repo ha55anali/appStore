@@ -3,7 +3,7 @@ package blInterface;
 import businessLayer.individualAppInterface;
 import businessLayer.AppCollectionInterface;
 
-interface appInterface extends individualAppInterface, AppCollectionInterface
+public interface appInterface extends individualAppInterface, AppCollectionInterface
 {
 
     // public App showDetails(int AppID);
