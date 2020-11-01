@@ -9,9 +9,9 @@ public interface individualAppInterface
 {
     public App showDetails(int AppID);
 
-    public String installApp(int AppID, int userID);
+    public String installApp(int AppID, int userID, int ver);
 
-    public String updateApp(int AppID, int userID);
+    public String updateApp(int AppID, int userID, int ver);
 
     public void removeApp(int AppID, int userID);
 
