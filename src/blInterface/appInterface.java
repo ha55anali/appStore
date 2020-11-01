@@ -12,9 +12,9 @@ public interface appInterface extends individualAppInterface, AppCollectionInter
 
     // public List<App> showAppsinCategory(String Category);
 
-    // public String installApp(int AppID, int userID);
+    // public String installApp(int AppID, int userID, int ver);
 
-    // public String updateApp(int AppID, int userID);
+    // public String updateApp(int AppID, int userID, int ver);
 
     // public void removeApp(int userID);
 

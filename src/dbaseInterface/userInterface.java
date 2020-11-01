@@ -12,7 +12,7 @@ public interface userInterface
     public void removeUser(int userID);
 
     //if user or app does not exists, throw invalidargumentexception
-    public void addInstalledApp(int appID, int userID);
+    public void addInstalledApp(int appID, int userID, int ver);
 
     //if user or app does not exists, throw invalidargumentexception
     public void removeInstalledApp(int appID, int userID);
