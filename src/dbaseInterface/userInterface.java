@@ -15,5 +15,5 @@ public interface userInterface
     public void addInstalledApp(int appID, int userID, int ver);
 
     //if user or app does not exists, throw invalidargumentexception
-    public void removeInstalledApp(int appID, int userID, int ver);
+    public void removeInstalledApp(int appID, int userID);
 }

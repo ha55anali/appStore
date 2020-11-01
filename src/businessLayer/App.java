@@ -43,14 +43,14 @@ class App implements blInterface.appInterface {
         return apps;
     }
 
-    public String installApp(int AppID, int userID) {
+    public String installApp(int AppID, int userID, int ver) {
         //add app to user data
-        dbUser.addInstalledApp(AppID, userID);
+        dbUser.addInstalledApp(AppID, userID, ver);
 
         return dbApp.getAppContent(AppID);
     }
 
-    public String updateApp(int AppID, int userID) {
+    public String updateApp(int AppID, int userID, int ver) {
         return null;
     }
 
