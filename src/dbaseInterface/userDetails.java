@@ -2,7 +2,7 @@ package dbaseInterface;
 
 import java.time.LocalDate;
 
-class userDetails
+public class userDetails
 {
     public String Name;
     public int userID;
