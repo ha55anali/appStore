@@ -6,9 +6,11 @@ import java.util.*;
 
 class App implements blInterface.appInterface {
     dbaseInterface.appInterface dbApp;
+    dbaseInterface.userInterface dbUser;
 
     public App() {
         dbApp = dbaseInterface.dbFactory.getAppObject();
+        dbUser = dbaseInterface.dbFactory.getUserObject();
     }
 
     public blInterface.App showDetails(int AppID) {
@@ -42,7 +44,10 @@ class App implements blInterface.appInterface {
     }
 
     public String installApp(int AppID, int userID) {
-        return null;
+        //add app to user data
+        dbUser.addInstalledApp(AppID, userID);
+
+        return dbApp.getAppContent(AppID);
     }
 
     public String updateApp(int AppID, int userID) {

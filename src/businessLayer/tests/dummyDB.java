@@ -43,7 +43,9 @@ public class dummyDB implements appInterface
     //if app does not exist throw invalidargumentexception
     public String getAppContent(int appID)
     {
-        return null;
+        if (appID == 1)
+            return "oeu";
+        return "errer";
     }
 
     //if app, user does not exist throw invalidargumentexception
