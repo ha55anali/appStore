@@ -2,9 +2,9 @@ package dbaseInterface;
 
 import java.util.*;
 
+//assume all parameters passed are correct
 public interface appInterface
 {
-    //if app does not exist throw invalidargumentexception
     public appDetails getAppDetails(int appID);
 
     //return appIds of all apps
@@ -13,22 +13,22 @@ public interface appInterface
     //returns all appIds in the category
     public List<Integer> getAppsInCategory(String Category);
 
-    //if app does not exist throw invalidargumentexception
     public String getAppContent(int appID);
 
-    //if app, user does not exist throw invalidargumentexception
-    //rating passed should be between 0 and 5
+    //if rating present, update it
     public void addRating(int appID, int userID, int rating);
 
-    //if app, user does not exist throw invalidargumentexception
+    //if comment present, update it
     public void addComment(int appID, int userID, String comment);
 
-    //if app exists, throw invalidargumentexception
-    public void addApp(appDetails app);
+    //appID will be assigned by database. pass dummy appID
+    // apps can have same names
+    public boolean addApp(appDetails app);
 
-    //if add does not exist, throw invalidargumentexception
-    public void updateApp(appDetails app);
+    public void updateApp(appDetails app, String content);
 
-    //if app does not exist, throw invalidargumentexception
     public void removeApp(int appID);
+
+    public boolean checkAppExists(int appID);
+
 }
