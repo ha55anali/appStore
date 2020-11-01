@@ -1,18 +1,17 @@
 package blInterface;
 
-public interface userInterface
-{
-    public void addUser(userDetails user);
+public interface userInterface {
+    public boolean addUser(userDetails user);
 
-    public void removeUser(int userID);
+    public boolean removeUser(int userID);
 
-    public void authenticateUser(int userID, String password);
+    public boolean authenticateUser(int userID, String password);
 
-    public void addCard(int cardNo, int ExpYear);
+    public boolean addCard(int userID, int cardNo, int ExpYear);
 
-    public void setPaymentMethod(String method);
+    public boolean setPaymentMethod(int userID, String method);
 
-    public void changeCardDetails(int cardNo, int NewExpYear);
+    public boolean changeCardDetails(int userID, int cardNo, int NewExpYear);
 
-    public void removeCardDetails(int cardNo);
+    public boolean removeCardDetails(int userID, int cardNo);
 }
