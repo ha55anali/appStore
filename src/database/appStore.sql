@@ -360,3 +360,26 @@ begin
  RAISERROR('Card or User not exists',16,1)
 end
 End
+
+go
+--PROCEDURE FOR ADDING APP
+create procedure add_App @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @description varchar(50)
+as
+Begin
+if(@name is not null and not exists(select * from app_details where @name = app_details.name))
+begin 
+	if(@version is not null)
+	begin 
+		if(@category is not null)
+		begin 
+			 insert into app_details(name,version,category,avg_rating, descript) values(@name, @version, @category, NULL,@description)
+		end
+		else
+		RAISERROR('Catergory Not Entered',16,1)
+	end
+	else
+	RAISERROR('Version Not Entered',16,1)
+end
+else
+RAISERROR('Application Already Exists',16,1)
+end
