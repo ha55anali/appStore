@@ -28,7 +28,7 @@ public interface userInterface
     public void changeCardDetails(int userID, int cardNo, int NewExpYear);
 
     //return 1 if email is being used by some user
-    public boolean checkEmailExists(int userID, String email);
+    public boolean checkEmailExists(String email);
 
     // if user or app does not exists, throw invalidargumentexception
     public void removeCardDetails(int userID, int cardNo);
