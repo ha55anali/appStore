@@ -11,7 +11,8 @@ public interface individualAppInterface
 
     public String installApp(int AppID, int userID, int ver);
 
-    public String updateApp(int AppID, int userID, int ver);
+    //if not on latest app, install latest app
+    public String updateApp(int AppID, int userID);
 
     public void removeApp(int AppID, int userID);
 
