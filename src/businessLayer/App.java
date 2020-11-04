@@ -15,7 +15,7 @@ class App implements blInterface.appInterface {
 
     public blInterface.App showDetails(int AppID) {
         //check if valid app
-        if (dbApp.checkAppExists(AppID)) {
+        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) {
             return returnblApp(AppID);
         } else {
             throw new IllegalArgumentException("App does not exist");
@@ -49,9 +49,9 @@ class App implements blInterface.appInterface {
     }
 
     public String installApp(int AppID, int userID, int ver) {
-        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0)
+        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) //valid app
             throw new IllegalArgumentException("Invalid app");
-        else if (Boolean.compare(dbUser.checkUserExists(userID), true)==0 )
+        else if (Boolean.compare(dbUser.checkUserExists(userID), true)==0 ) //valid user
             throw new IllegalArgumentException("Invalid user");
         else
         {
@@ -62,7 +62,24 @@ class App implements blInterface.appInterface {
     }
 
     public String updateApp(int AppID, int userID, int ver) {
-        return null;
+        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) //check valid app
+            throw new IllegalArgumentException("Invalid app");
+        else if (Boolean.compare(dbUser.checkUserExists(userID), true)==0 ) //valid user
+            throw new IllegalArgumentException("Invalid user");
+        else
+        {
+            //get version of app installed
+            int installedVer = dbUser.checkAppInstall(AppID, userID);
+            //get latest version
+            blInterface.App app = returnblApp(AppID);
+
+            if (installedVer == app.Version)
+                throw new IllegalArgumentException("latest app already installed");
+
+            //return latest app content
+            return dbApp.getAppContent(AppID);
+
+        }
     }
 
     public void removeApp(int AppID, int userID) {
