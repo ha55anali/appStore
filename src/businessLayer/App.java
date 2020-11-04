@@ -97,6 +97,17 @@ class App implements blInterface.appInterface {
     }
 
     public void addReview(int AppID, int userID, String Review) {
+        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) //check valid app
+            throw new IllegalArgumentException("Invalid app");
+        else if (Boolean.compare(dbUser.checkUserExists(userID), true)==0 ) //valid user
+            throw new IllegalArgumentException("Invalid user");
+        else
+        {
+            //check if user has app installed
+            if (dbUser.checkAppInstall(AppID, userID) == -1)
+                throw new IllegalArgumentException("User does not have this app installed");
+            dbApp.addComment(AppID, userID, Review);
+        }
     }
 
     public void addRating(int AppID, int userID, int rating) {
