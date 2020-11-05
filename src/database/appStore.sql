@@ -1,5 +1,5 @@
 --drop database appStore
---go
+go
 create database appStore
 go
 use appStore
