@@ -40,10 +40,10 @@ PRIMARY KEY(app_ID, user_ID)
 
 go
 
-CREATE TABLE reviews(
+CREATE TABLE comments(
 app_ID INT NOT NULL, 
 user_ID INT NOT NULL,
-review VARCHAR(100) NOT NULL, 
+comment VARCHAR(100) NOT NULL, 
 FOREIGN KEY(app_ID) REFERENCES app_details(app_ID) ON DELETE CASCADE,
 FOREIGN KEY(user_ID) REFERENCES user_details(user_ID) ON DELETE CASCADE, 
 PRIMARY KEY(app_ID, user_ID)
