@@ -362,6 +362,88 @@ end
 End
 
 go
+
+--PROCEDURES FOR APPINTERFACE
+--PROCEDURE FOR GETAPPDETAILS
+create procedure getAppDetails @app_id INT
+as 
+begin
+	select * from app_details where @app_id = app_details.app_ID
+end
+
+go
+--PROCEDURE FOR ALLAPPS
+create procedure getAllApps
+as
+begin
+	select app_details.app_ID from app_details
+end
+
+go
+--PROCEDURE FOR GETAPPSINCATEGORY
+create procedure getAppsInCategory @category varchar(50)
+as
+begin
+	select app_details.app_ID from app_details where @category = app_details.category
+end
+
+go
+
+--PROCEDURE FOR GETAPPCONTENT
+create procedure getAppContent @app_id INT
+as
+begin
+	select app_details.descript from app_details where @app_id = app_details.app_ID
+end
+
+go
+
+--PROCEDURE FOR ADDRATING
+create procedure addRating @app_id INT, @user_id INT, @rating INT
+as
+begin
+	declare
+	@avgRating FLOAT
+	if exists(select ratings.rating from ratings where ratings.app_ID = @app_id and ratings.user_ID = @user_id)
+	begin
+		update ratings
+		set rating = @rating
+		where ratings.app_ID = @app_id and ratings.user_ID = @user_id
+		select @avgRating = AVG(ratings.rating) from ratings where @app_id = ratings.app_ID
+		update app_details
+		set avg_rating = @avgRating
+		where app_details.app_ID = @app_id
+	end
+	else
+	begin
+		insert into ratings(app_ID, user_ID, rating) values(@app_id, @user_id, @rating)
+		select @avgRating = AVG(ratings.rating) from ratings where @app_id = ratings.app_ID
+		update app_details
+		set avg_rating = @avgRating
+		where app_details.app_ID = @app_id
+	end
+end
+
+go
+
+--PROCEDURE FOR ADDCOMMENT
+create procedure addComment @app_id INT, @user_id INT, @comment varchar(100)
+as
+begin
+	if exists(select comments.comment from comments where @user_id = comments.user_ID and @app_id = comments.app_ID)
+	begin
+		update comments
+		set comments.comment = @comment
+		where comments.app_ID = @app_id and comments.user_ID = @user_id
+	end
+	else
+	begin
+		insert into comments(app_ID, user_ID, comment) values(@app_id, @user_id, @comment)
+	end
+end
+
+go
+
 --PROCEDURE FOR ADDING APP
 create procedure add_App @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @description varchar(50)
 as
@@ -383,3 +465,44 @@ end
 else
 RAISERROR('Application Already Exists',16,1)
 end
+
+go
+--PROCEDURE FOR REMOVE APP
+create procedure remove_App @app_id INT
+as
+begin
+	delete from app_details where app_details.app_ID = @app_id
+end
+
+go
+--PROCEDURE FOR CHECKAPPEXISTS
+create procedure checkAppExits @app_id INT, @flag INT OUTPUT
+as
+begin
+	if exists(select app_details.app_ID from app_details where app_ID = @app_id)
+		set @flag = 1
+	else
+		set @flag = 0 
+end 
+
+go
+
+--PROCEDURE FOR UPDATEAPP
+create procedure updateApp @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @content varchar(50)
+as
+begin
+	if exists(select app_details.app_ID from app_details
+				where @name = app_details.name
+				and @version = app_details.version
+				and @category = app_details.category)
+	begin
+		update app_details
+		set descript = @content
+		where @name = app_details.name
+		and @version = app_details.version
+		and @category = app_details.category
+	end
+	else
+	RAISERROR('APP not Exists!',16,1)
+end
+
