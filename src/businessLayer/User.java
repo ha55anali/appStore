@@ -41,9 +41,6 @@ public class User implements blInterface.userInterface {
         return true;
     }
 
-    // this kinda incomplete lmao
-    // TODO: add some way to find out that another user does not have the same card
-    // no
     public boolean addCard(int userID, int cardNo, int ExpYear) {
         if (userID < 0 || cardNo < 0 || ExpYear < LocalDate.now().getYear() || dbUser.checkUserExists(userID) == false
                 || dbUser.checkUserCard(userID, cardNo))
