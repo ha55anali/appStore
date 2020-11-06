@@ -528,3 +528,99 @@ begin
 	RAISERROR('APP not Exists!',16,1)
 end
 
+go 
+
+--PROCEDURE FOR GETDEVDETAILS
+create procedure getdevDetails @dev_id INT
+as 
+begin
+	select * from dev_details where @dev_id = dev_details.dev_ID
+end
+
+go
+--PROCEDURE FOR ADD USER DEV
+CREATE PROCEDURE add_user_dev @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE
+as
+Begin
+	if (@email is not null)
+	begin
+	 if(@password is not null)
+	 begin
+	  if(@name is not null)
+	  begin
+	   if(@date_of_birth is not null)
+	   begin
+		  if not exists(select * from dev_details where @email = dev_details.email)
+		  begin
+		  insert into dev_details(name,email,password,date_of_birth) values (@name, @email, @password, @date_of_birth)
+		  end
+		  else
+		  RAISERROR('Dev Account is already present!',16,1)
+		  end
+	     else
+	     RAISERROR('Date of Birth is incorrect!',16,1)
+	   end
+	   else
+	   RAISERROR('Name is incorrect!',16,1)
+	 end
+	 else
+	 RAISERROR('Password is incorrect!',16,1)
+	end
+	else
+	RAISERROR('Email is incorrect!',16,1)
+End
+
+go
+
+--PROCEDURE FOR REMOVE USER DEV
+CREATE PROCEDURE remove_user_dev @dev_id INT
+as
+Begin
+	if (@dev_id is not null)
+		if exists(select dev_ID from dev_details where dev_details.dev_ID = @dev_id)
+			begin
+			delete from dev_details
+			where dev_details.dev_ID = @dev_id
+			end
+			else
+			RAISERROR('Dev not Exists!',16,1)
+	else
+	RAISERROR('Invalid Dev ID!',16,1)
+END
+
+go
+--PROCEDURE FOR ADDAPP DEV
+create procedure add_App_dev @devId INT ,@appID INT
+as
+Begin
+if(@appId is not null and exists(select * from app_details where @appId = app_details.app_ID))
+begin 
+	if(@devId is not null and exists(select * from dev_details where @devID = dev_details.dev_ID))
+	begin 
+		insert into dev_apps(app_ID,dev_ID) values(@appId, @devId)
+	end
+	else
+	RAISERROR('DEV Not Exists',16,1)
+end
+else
+RAISERROR('Application Not Exists',16,1)
+end
+
+go
+--PROCEDURE FOR REMOVEAPP DEV
+create procedure remove_App_Dev @devId INT ,@appID INT
+as
+Begin
+if(@appId is not null and exists(select * from app_details where @appId = app_details.app_ID))
+begin 
+	if(@devId is not null and exists(select * from dev_details where @devId = dev_details.dev_ID))
+	begin 
+		if(exists (select * from dev_apps where @devId = dev_apps.dev_ID and @appId = dev_apps.app_ID))
+		   delete from dev_apps where @devId = dev_apps.dev_ID and @appId = dev_apps.app_ID
+	end
+	else
+	RAISERROR('User Not Exists',16,1)
+end
+else
+RAISERROR('Application Not Exists',16,1)
+end
