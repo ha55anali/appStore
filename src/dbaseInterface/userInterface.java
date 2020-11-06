@@ -1,8 +1,7 @@
 package dbaseInterface;
 
 //assume all parameters passed are correct
-public interface userInterface
-{
+public interface userInterface {
     public userDetails getUserDetails(int userID);
 
     public boolean checkUserExists(int userID);
@@ -15,11 +14,11 @@ public interface userInterface
 
     public void addCard(int userID, int cardNo, int ExpYear);
 
-    public void authenticateUser(int userID, int password);
+    public void authenticateUser(int userID, String password);
 
     public void removeInstalledApp(int appID, int userID);
 
-    //return app version
+    // return app version
     // -1 if not installed
     public int checkAppInstall(int appID, int userID);
 

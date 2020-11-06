@@ -26,6 +26,7 @@ CLASSES = \
 	   dbaseInterface/appDetails.java \
 	   dbaseInterface/dbFactory.java \
 	   dbaseInterface/userInterface.java
+	   businessLayer/User.java
 
 
 		  
