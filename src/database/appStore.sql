@@ -617,6 +617,7 @@ begin
 	begin 
 		if(exists (select * from dev_apps where @devId = dev_apps.dev_ID and @appId = dev_apps.app_ID))
 		   delete from dev_apps where @devId = dev_apps.dev_ID and @appId = dev_apps.app_ID
+		   delete from app_details where @appID = app_details.app_ID
 	end
 	else
 	RAISERROR('User Not Exists',16,1)
