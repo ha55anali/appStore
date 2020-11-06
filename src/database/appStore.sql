@@ -80,6 +80,27 @@ FOREIGN KEY(user_ID) REFERENCES user_details(user_ID) ON DELETE CASCADE
 
 go
 
+CREATE TABLE dev_details(
+dev_ID INT NOT NULL IDENTITY (1,1) UNIQUE, 
+name VARCHAR(50) NOT NULL,
+date_of_birth DATE NOT NULL,
+password VARCHAR(50) NOT NULL,
+email VARCHAR(50) NOT NULL, 
+PRIMARY KEY(dev_ID)
+)
+
+go
+
+CREATE TABLE dev_apps(
+app_ID INT NOT NULL, 
+dev_ID INT NOT NULL, 
+FOREIGN KEY(app_ID) REFERENCES app_details(app_ID) ON DELETE CASCADE,
+FOREIGN KEY(dev_ID) REFERENCES dev_details(dev_ID) ON DELETE CASCADE, 
+PRIMARY KEY(app_ID, dev_ID)
+)
+
+go
+
 --PROCEDURE FOR ADD USER
 CREATE PROCEDURE add_user @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE
 as
