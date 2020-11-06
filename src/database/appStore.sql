@@ -466,7 +466,7 @@ end
 go
 
 --PROCEDURE FOR ADDING APP
-create procedure add_App @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @description varchar(50)
+create procedure add_App @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @description varchar(50), @appId INT OUTPUT
 as
 Begin
 if(@name is not null and not exists(select * from app_details where @name = app_details.name))
@@ -476,6 +476,7 @@ begin
 		if(@category is not null)
 		begin 
 			 insert into app_details(name,version,category,avg_rating, descript) values(@name, @version, @category, NULL,@description)
+			select @appId = AVG(app_ID) from app_details where name = @name and @version = version and @category = category
 		end
 		else
 		RAISERROR('Catergory Not Entered',16,1)
