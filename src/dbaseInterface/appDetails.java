@@ -4,15 +4,19 @@ import java.util.*;
 
 public class appDetails
 {
-    int AppID;
-    int Version;
-    List<Integer> Ratings;
-    int avgRatings;
-    List<String> Reviews;
+    public int AppID;
+    public String Name;
+    public String Description;
+    public int Version;
+    public List<Integer> Ratings;
+    public int avgRatings;
+    public List<String> Reviews;
 
-    public appDetails(int ID, int Ver, List<Integer> UserRatings, int aRating, List<String> UserReviews )
+    public appDetails(int ID, String AppName, String AppDescription, int Ver, List<Integer> UserRatings, int aRating, List<String> UserReviews )
     {
         AppID=ID;
+        Name=AppName;
+        Description= AppDescription;
         Version=Ver;
         Ratings=new ArrayList<Integer>();
         for(int i : UserRatings)

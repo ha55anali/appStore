@@ -1,19 +1,37 @@
 package dbaseInterface;
 
+//assume all parameters passed are correct
 public interface userInterface
 {
-    // if user not found raise invalidArgumentException
     public userDetails getUserDetails(int userID);
 
-    //if user exists raise invalidargumentexception
-    public void addUser(userDetails user);
+    public boolean checkUserExists(int userID);
 
-    //if user does not exist throw invalidargumentexception
+    public int addUser(userDetails user);
+
     public void removeUser(int userID);
 
-    //if user or app does not exists, throw invalidargumentexception
-    public void addInstalledApp(int appID, int userID);
+    public void addInstalledApp(int appID, int userID, int ver);
 
-    //if user or app does not exists, throw invalidargumentexception
+    public void addCard(int userID, int cardNo, int ExpYear);
+
+    public void authenticateUser(int userID, int password);
+
     public void removeInstalledApp(int appID, int userID);
+
+    //return app version
+    // -1 if not installed
+    public int checkAppInstall(int appID, int userID);
+
+    public void setPaymentMethod(int userID, String method);
+
+    public void changeCardDetails(int userID, int cardNo, int NewExpYear);
+
+    //return 1 if email is being used by some user
+    public boolean checkEmailExists(String email);
+
+    // if user or app does not exists, throw invalidargumentexception
+    public void removeCardDetails(int userID, int cardNo);
+
+    public boolean checkUserCard(int userID, int cardNo);
 }
