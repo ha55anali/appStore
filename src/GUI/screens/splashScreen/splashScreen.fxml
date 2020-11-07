@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: #323f4c;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.screens.splashScreen.SplashScreenController">
+   <children>
+      <Text fx:id="text" fill="WHITE" layoutX="284.0" layoutY="581.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Play Store" textAlignment="CENTER">
+         <font>
+            <Font name="Fira Sans Light" size="96.0" />
+         </font>
+      </Text>
+
+       <ImageView fx:id="logo" depthTest="ENABLE" fitHeight="366.0" fitWidth="370.0" focusTraversable="true" layoutX="317.0" layoutY="95.0" nodeOrientation="INHERIT" preserveRatio="true">
+           <image>
+            <Image url="@../../images/playstoreLogo.png" />
+           </image>
+       </ImageView>
+   </children>
+</AnchorPane>
