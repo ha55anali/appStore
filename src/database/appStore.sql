@@ -2,6 +2,7 @@ drop database appStore
 create database appStore
 use appStore
 
+go
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ---CREATING TABLES-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,6 +15,8 @@ avg_rating FLOAT,
 PRIMARY KEY(app_ID)
 )
 
+go
+
 CREATE TABLE user_details(
 user_ID INT NOT NULL IDENTITY (1,1) UNIQUE, 
 name VARCHAR(50) NOT NULL,
@@ -22,6 +25,8 @@ password VARCHAR(50) NOT NULL,
 email VARCHAR(50) NOT NULL, 
 PRIMARY KEY(user_ID)
 )
+
+go
 
 CREATE TABLE ratings(
 app_ID INT NOT NULL, 
@@ -32,6 +37,8 @@ FOREIGN KEY(user_ID) REFERENCES user_details(user_ID),
 PRIMARY KEY(app_ID, user_ID)
 )
 
+go
+
 CREATE TABLE reviews(
 app_ID INT NOT NULL, 
 user_ID INT NOT NULL,
@@ -41,6 +48,8 @@ FOREIGN KEY(user_ID) REFERENCES user_details(user_ID),
 PRIMARY KEY(app_ID, user_ID)
 )
 
+go
+
 CREATE TABLE user_apps(
 app_ID INT NOT NULL, 
 user_ID INT NOT NULL, 
@@ -49,7 +58,9 @@ FOREIGN KEY(user_ID) REFERENCES user_details(user_ID),
 PRIMARY KEY(app_ID, user_ID)
 )
 
---PROCEDURE FOR USER SIGNUP
+go
+
+PROCEDURE FOR USER SIGNUP
 CREATE PROCEDURE signup @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE
 as
 Begin
@@ -81,7 +92,9 @@ Begin
 	RAISERROR('Email is incorrect!',16,1)
 End
 
--- PROCEDURE FOR USER SIGNIN
+go
+
+PROCEDURE FOR USER SIGNIN
 create procedure signin @email varchar(50),@password varchar(20)
 as
 Begin
@@ -104,7 +117,9 @@ Begin
 	RAISERROR('Invalid email',16,1)
 END
 
---PROCEDURE FOR ADDING APP
+go
+
+PROCEDURE FOR ADDING APP
 create procedure add_App @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50)
 as
 Begin
@@ -126,7 +141,10 @@ else
 RAISERROR('Application Already Exists',16,1)
 end
 
--- TO GET APP ID, THIS ACTS AS A HELPER FUNCTION
+go
+
+
+TO GET APP ID, THIS ACTS AS A HELPER FUNCTION
 Create procedure getAppId @appname varchar(50),@version int,@appId int output
 As
 Begin
@@ -135,7 +153,9 @@ Begin
 	where name=@appname and version=@version)
 End
 
--- TO GET USER ID, THIS ACTS AS A HELPER FUNCTION
+go
+
+TO GET USER ID, THIS ACTS AS A HELPER FUNCTION
 Create procedure getUserId @email varchar(50), @userId int output
 As
 Begin
@@ -144,7 +164,9 @@ Begin
 	where user_details.email = @email)
 End
 
---PROCEDURE FOR getUSERDETAILS
+go
+
+PROCEDURE FOR getUSERDETAILS
 create procedure get_User_Details @userId INT
 as
 Begin
@@ -156,7 +178,9 @@ Begin
 	RAISERROR('User Not Exists',16,1)
 END
 
---PROCEDURE FOR ADDINSTALLED APP FOR USER
+go
+
+PROCEDURE FOR ADDINSTALLED APP FOR USER
 create procedure add_Installed_App @appId INT ,@userID INT
 as
 Begin
@@ -173,7 +197,9 @@ else
 RAISERROR('Application Not Exists',16,1)
 end
 
---PROCEDURE FOR REMOVEINSTALLED APP FOR USER
+go
+
+PROCEDURE FOR REMOVEINSTALLED APP FOR USER
 create procedure remove_Installed_App @appId INT ,@userID INT
 as
 Begin
@@ -190,3 +216,5 @@ end
 else
 RAISERROR('Application Not Exists',16,1)
 end
+
+go
