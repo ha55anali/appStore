@@ -23,7 +23,8 @@ public interface appInterface
 
     //appID will be assigned by database. pass dummy appID
     // apps can have same names
-    public boolean addApp(appDetails app);
+    // return appID assigned
+    public int addApp(appDetails app);
 
     public void updateApp(appDetails app, String content);
 

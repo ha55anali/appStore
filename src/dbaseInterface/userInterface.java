@@ -1,12 +1,14 @@
 package dbaseInterface;
 
+import java.sql.SQLException;
+
 //assume all parameters passed are correct
 public interface userInterface {
     public userDetails getUserDetails(int userID);
 
     public boolean checkUserExists(int userID);
 
-    public void addUser(userDetails user);
+    public void addUser(userDetails user) throws SQLException;
 
     public void removeUser(int userID);
 
@@ -27,7 +29,7 @@ public interface userInterface {
     public void changeCardDetails(int userID, int cardNo, int NewExpYear);
 
     // return 1 if email is being used by some user
-    public boolean checkEmailExists(int userID, String email);
+    public boolean checkEmailExists(String email);
 
     // if user or app does not exists, throw invalidargumentexception
     public void removeCardDetails(int userID, int cardNo);
