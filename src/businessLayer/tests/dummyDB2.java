@@ -21,42 +21,24 @@ import dbaseInterface.*;
 
 public class dummyDB2 implements dbaseInterface.userInterface {
 
+    // private connection object. need open everytime function has to be called
     private Connection conn = null;
 
     public dummyDB2() {
-        // try {
-
-        // String dbURL = "jdbc:sqlserver://localhost\\appStore:1433";
-        // String user = "sa";
-        // String pass = "Yibz6969";
-        // conn = DriverManager.getConnection(dbURL, user, pass);
-        // if (conn != null) {
-        // DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
-        // System.out.println("Driver name: " + dm.getDriverName());
-        // System.out.println("Driver version: " + dm.getDriverVersion());
-        // System.out.println("Product name: " + dm.getDatabaseProductName());
-        // System.out.println("Product version: " + dm.getDatabaseProductVersion());
-        // }
-
-        // } catch (SQLException ex) {
-        // ex.printStackTrace();
-        // } finally {
-        // try {
-        // if (conn != null && !conn.isClosed()) {
-        // conn.close();
-        // }
-        // } catch (SQLException ex) {
-        // ex.printStackTrace();
-        // }
-        // }
-
+        // let it be empty for now
     }
 
+    // helper function used whenever a procedure is used
     private void createConnection() {
+        // creates a connection with the db
+        // 1433 is the port number. this is sql server's default for linux devices
+        // dbURL might vary for windows devices
         String dbURL = "jdbc:sqlserver://localhost\\DatabaseName=appStore:1433";
+        // username and pwd of your own sql server acc
         String username = "sa";
         String pass = "Yibz6969";
         try {
+            // necessary every time we need to call a procedure
             conn = DriverManager.getConnection(dbURL, username, pass);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,6 +48,7 @@ public class dummyDB2 implements dbaseInterface.userInterface {
     public void addUser(dbaseInterface.userDetails user) throws SQLException {
 
         this.createConnection();
+        // convert LocalDate to Date object for SQL
         Date dob = Date.valueOf(user.DOB);
         CallableStatement cs = conn.prepareCall("{call appStore.dbo.add_user(?,?,?,?)}");
         cs.setString(1, user.Name);
@@ -83,9 +66,11 @@ public class dummyDB2 implements dbaseInterface.userInterface {
             cs = conn.prepareCall("{call appStore.dbo.get_User_Details(?)");
             cs.setInt(1, userID);
             ResultSet rs = cs.executeQuery();
+            // rs stores the result of our call
             if (rs != null) {
                 resultObj.userID = rs.getInt(1);
                 resultObj.Name = rs.getString(2);
+                // convert Date object back to LocalDate
                 resultObj.DOB = rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                 resultObj.password = rs.getString(4);
                 resultObj.email = rs.getString(5);
@@ -167,6 +152,7 @@ public class dummyDB2 implements dbaseInterface.userInterface {
             this.createConnection();
             CallableStatement cs = conn.prepareCall("{call appStore.dbo.check_email_exist(?,?)}");
             cs.setString(1, email);
+
             cs.registerOutParameter(2, Types.INTEGER);
             cs.execute();
 
