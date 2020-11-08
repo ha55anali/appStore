@@ -2,6 +2,8 @@ package blInterface;
 
 public interface devInterface
 {
+    public userDetails getDevDetails(int devID);
+
     public void addDev(userDetails dev);
 
     public void removeDev(int devID);
