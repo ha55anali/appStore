@@ -2,6 +2,8 @@ package businessLayer;
 
 import java.time.LocalDate;
 
+import blInterface.userDetails;
+
 public class User implements blInterface.userInterface {
     dbaseInterface.userInterface dbUser;
 
@@ -30,6 +32,14 @@ public class User implements blInterface.userInterface {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public blInterface.userDetails getUserDetails(int userID) {
+        if (userID < 0 || dbUser.checkUserExists(userID) == false)
+            return null;
+        dbaseInterface.userDetails u = dbUser.getUserDetails(userID);
+        blInterface.userDetails retObj = new blInterface.userDetails(u.Name, u.userID, u.DOB, u.email, u.password);
+        return retObj;
     }
 
     public boolean removeUser(int userID) {
