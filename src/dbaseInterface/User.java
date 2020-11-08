@@ -5,7 +5,39 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
 
-public class User {
+public class User implements userInterface {
+
+    public boolean checkUserExists(int userID) {
+        return false;
+    }
+
+    public void addInstalledApp(int appID, int userID, int ver) {}
+
+    public void addCard(int userID, int cardNo, int ExpYear) {}
+
+    public void authenticateUser(int userID, int password) {}
+
+    public void removeInstalledApp(int appID, int userID) {}
+
+    public int checkAppInstall(int appID, int userID) {
+
+        return 0;
+    }
+
+    public void setPaymentMethod(int userID, String method) {}
+
+    public void changeCardDetails(int userID, int cardNo, int NewExpYear) {}
+
+    public void removeCardDetails(int userID, int cardNo) {}
+
+    public boolean checkUserCard(int userID, int cardNo) {
+
+        return false;
+    }
+
+    public boolean checkEmailExists(String email) {
+        return false;
+    }
 
     public int addUser(userDetails user) {
 
