@@ -5,7 +5,7 @@ import java.sql.SQLException;
 public interface userInterface {
     public boolean addUser(userDetails user);
 
-    public boolean getUserDetails(int userID);
+    public userDetails getUserDetails(int userID);
 
     public boolean removeUser(int userID);
 

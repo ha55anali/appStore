@@ -15,19 +15,21 @@ public class User implements blInterface.userInterface {
 
     public boolean addUser(blInterface.userDetails user) {
         // user must be atleast 13 years of age
-        // if (stringIsNullOrEmpty(user.Name) || stringIsNullOrEmpty(user.email) ||
-        // stringIsNullOrEmpty(user.password)
-        // || user.userID < 0 || user.DOB == null || LocalDate.now().getYear() -
-        // user.DOB.getYear() < 13
-        // || dbUser.checkUserExists(user.userID) ||
-        // dbUser.checkEmailExists(user.userID, user.email)) {
-        // return false;
-        // }
+        if (stringIsNullOrEmpty(user.Name) || stringIsNullOrEmpty(user.email) || stringIsNullOrEmpty(user.password)
+                || user.userID < 0 || user.DOB == null || LocalDate.now().getYear() - user.DOB.getYear() < 13
+                || dbUser.checkUserExists(user.userID) || dbUser.checkEmailExists(user.email)) {
+            return false;
+        }
 
         dbaseInterface.userDetails userdetails = new dbaseInterface.userDetails(user.Name, user.userID, user.DOB,
                 user.email, user.password);
-        dbUser.addUser(userdetails);
-        return true;
+        try {
+            dbUser.addUser(userdetails);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean removeUser(int userID) {
