@@ -8,6 +8,56 @@ import java.util.*;
 public class User implements userInterface {
 
     public boolean checkUserExists(int userID) {
+        
+        //first we check if users even exist or not
+        File count_file = new File("totalUsers.txt");
+        int file_status = FileControl.CheckFile(count_file);
+
+        if(file_status == -1 || file_status == 1)   //file wasn't present earlier
+            return false;
+        
+        //now we know that file exists
+        //up to the real work now. Reading file to find the userID ughh
+
+        File user_file = new File("user_record.txt");
+        file_status = FileControl.CheckFile(user_file);
+
+        if(file_status == -1 || file_status == 1)       //couldn't open file or file wasn't present
+            return false;
+        
+        try {
+            Scanner scanner = new Scanner(user_file);
+            while(scanner.hasNextLine()) {              //will read the file till end
+                
+                String data = scanner.nextLine();
+                try {
+                    if(Integer.valueOf(data) == userID) {        //user found
+                        
+                        scanner.close();
+                        return true;
+                    }
+                    else {
+
+                        //skipping the next 4 lines of name, DOB, password, email
+                        scanner.nextLine();
+                        scanner.nextLine();
+                        scanner.nextLine();
+                        scanner.nextLine();
+                    }
+                }
+                catch (Exception ex) {
+                    continue;
+                }
+            }
+            scanner.close();
+            return false;
+        }
+        catch (Exception e) {
+
+            System.out.println("An error occured in searching user\n");
+            e.printStackTrace();
+        }
+
         return false;
     }
 
@@ -15,7 +65,72 @@ public class User implements userInterface {
 
     public void addCard(int userID, int cardNo, int ExpYear) {}
 
-    public void authenticateUser(int userID, int password) {}
+    public boolean authenticateUser(int userID, String password) {
+
+        //first we check if users even exist or not
+        File count_file = new File("totalUsers.txt");
+        int file_status = FileControl.CheckFile(count_file);
+
+        if(file_status == -1 || file_status == 1)   //file wasn't present earlier
+            return false;
+        
+        //now we know that file exists
+        //up to the real work now. Reading file to find the userID ughh
+
+        File user_file = new File("user_record.txt");
+        file_status = FileControl.CheckFile(user_file);
+
+        if(file_status == -1 || file_status == 1)       //couldn't open file or file wasn't present
+            return false;
+        
+        try {
+            Scanner scanner = new Scanner(user_file);
+            while(scanner.hasNextLine()) {              //will read the file till end
+                
+                String data = scanner.nextLine();
+                try {
+                    if(Integer.valueOf(data) == userID) {        //user found
+
+                        //now we have to see if the password matched the given password
+                        
+                        scanner.nextLine();     //name of user
+                        scanner.nextLine();     //DOB of user
+
+                        if (scanner.nextLine() == password) {
+
+                            scanner.close();
+                            return true;
+                        }
+                        else {
+
+                            scanner.close();
+                            return false;
+                        }
+                    }
+                    else {
+
+                        //skipping the next 4 lines of name, DOB, password, email
+                        scanner.nextLine();
+                        scanner.nextLine();
+                        scanner.nextLine();
+                        scanner.nextLine();
+                    }
+                }
+                catch (Exception ex) {
+                    continue;
+                }
+            }
+            scanner.close();
+            return false;
+        }
+        catch (Exception e) {
+
+            System.out.println("An error occured in authenticating user\n");
+            e.printStackTrace();
+        }
+
+        return false;
+    }
 
     public void removeInstalledApp(int appID, int userID) {}
 
@@ -36,6 +151,57 @@ public class User implements userInterface {
     }
 
     public boolean checkEmailExists(String email) {
+        
+        //first we check if users even exist or not
+        File count_file = new File("totalUsers.txt");
+        int file_status = FileControl.CheckFile(count_file);
+
+        if(file_status == -1 || file_status == 1)   //file wasn't present earlier
+            return false;
+        
+        //now we know that file exists
+        //up to the real work now. Reading file to find the userID ughh
+
+        File user_file = new File("user_record.txt");
+        file_status = FileControl.CheckFile(user_file);
+
+        if(file_status == -1 || file_status == 1)       //couldn't open file or file wasn't present
+            return false;
+        
+        try {
+            Scanner scanner = new Scanner(user_file);
+            while(scanner.hasNextLine()) {              //will read the file till end
+                
+                //if file has this next line, it means file has a userID,
+                //and if there's a userID, it means it is followed by 4 more lines having information of user
+
+                //skipping useless information
+                scanner.nextLine();     //userID -> we don't need this
+                scanner.nextLine();     //name -> don't need
+                scanner.nextLine();     //DOB -> useless
+                scanner.nextLine();     //password -> nahhh
+
+                String data = scanner.nextLine();       //email, the thing we are concerned right now
+                try {
+                    if(data == email) {        //user found
+
+                            scanner.close();
+                            return true;
+                    }
+                }
+                catch (Exception ex) {
+                    continue;
+                }
+            }
+            scanner.close();
+            return false;
+        }
+        catch (Exception e) {
+
+            System.out.println("An error occured in checking for email\n");
+            e.printStackTrace();
+        }
+
         return false;
     }
 
