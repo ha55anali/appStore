@@ -2,19 +2,18 @@ package blInterface;
 
 public interface userInterface
 {
+    //if invalid userID, exception is thrown
     public userDetails getUserDetails(int userID);
 
-    public void addUser(userDetails user);
+    //userID is assigned automatically
+    //userID of the new user is returned
+    //-1 is returned if email is not unique
+    public int addUser(userDetails user);
 
+    //exception is thrown if userID is not invalid
     public void removeUser(int userID);
 
-    public void authenticateUser(int userID, String password);
-
-    public void addCard(int cardNo, int ExpYear);
-
-    public void setPaymentMethod(String method);
-
-    public void changeCardDetails(int cardNo, int NewExpYear);
-
-    public void removeCardDetails(int cardNo);
+    //return userID if valid login    
+    //returns -1 if invalid
+    public int authenticateUser(String email, String password);
 }

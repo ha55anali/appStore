@@ -1,7 +1,6 @@
 
-package businessLayer;
+package blInterface;
 
-import blInterface.App;
 import java.util.List;
 
 
