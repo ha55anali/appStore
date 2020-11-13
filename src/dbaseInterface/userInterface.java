@@ -1,12 +1,14 @@
 package dbaseInterface;
 
 //assume all parameters passed are correct
-public interface userInterface {
+public interface userInterface
+{
+    //assume userID is valid
     public userDetails getUserDetails(int userID);
 
     public boolean checkUserExists(int userID);
 
-    public void addUser(userDetails user);
+    public int addUser(userDetails user);
 
     public void removeUser(int userID);
 
@@ -14,11 +16,13 @@ public interface userInterface {
 
     public void addCard(int userID, int cardNo, int ExpYear);
 
-    public void authenticateUser(int userID, String password);
+    //if valid login, return userID of dev
+    //if invalid login, return -1
+    public int authenticateUser(String email, String password);
 
     public void removeInstalledApp(int appID, int userID);
 
-    // return app version
+    //return app version
     // -1 if not installed
     public int checkAppInstall(int appID, int userID);
 
