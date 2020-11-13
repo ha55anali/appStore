@@ -11,7 +11,7 @@ public interface userInterface
     public int addUser(userDetails user);
 
     //exception is thrown if userID is not invalid
-    public void removeUser(int userID);
+    public void removeUser(int userID) throws IllegalArgumentException;
 
     //return userID if valid login    
     //returns -1 if invalid

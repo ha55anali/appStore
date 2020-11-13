@@ -8,5 +8,8 @@ public interface AppCollectionInterface
 {
     public List<App> showAllApps();
 
-    public List<App> showAppsinCategory(String Category);
+    //if invalid category, throw exception
+    public List<App> showAppsinCategory(String Category) throws IllegalArgumentException;
+
+    public List<String> getCategoryList();
 }
