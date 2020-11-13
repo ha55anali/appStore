@@ -1,5 +1,7 @@
 package dbaseInterface;
 
+import java.util.*;
+
 //assume all parameters passed are correct
 public interface devInterface
 {
@@ -31,4 +33,6 @@ public interface devInterface
     //if valid login, return userID of dev
     //if invalid login, return -1
     public int authenticateUser(String email, String password);
+
+    public List<Integer> getDevApps(int devID);
 }
