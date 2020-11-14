@@ -23,6 +23,8 @@ public interface userInterface
     // -1 if not installed
     public int checkAppInstall(int appID, int userID);
 
+    public void setPaymentMethod(int userID, String method);
+
     public boolean changeCardDetails(int userID, int cardNo, int NewExpYear);
 
     //return 1 if email is being used by some user
