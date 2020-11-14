@@ -539,7 +539,7 @@ end
 
 go
 --PROCEDURE FOR ADD USER DEV
-CREATE PROCEDURE add_user_dev @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE
+CREATE PROCEDURE add_user_dev @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE, @devID int output
 as
 Begin
 	if (@email is not null)
@@ -553,6 +553,7 @@ Begin
 		  if not exists(select * from dev_details where @email = dev_details.email)
 		  begin
 		  insert into dev_details(name,email,password,date_of_birth) values (@name, @email, @password, @date_of_birth)
+		  select @devID = (select dev_details.dev_ID from dev_details where @email = email and @password = password)
 		  end
 		  else
 		  RAISERROR('Dev Account is already present!',16,1)
@@ -569,7 +570,6 @@ Begin
 	else
 	RAISERROR('Email is incorrect!',16,1)
 End
-
 go
 
 --PROCEDURE FOR REMOVE USER DEV
