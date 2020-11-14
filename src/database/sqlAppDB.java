@@ -103,10 +103,11 @@ public class sqlAppDB implements dbaseInterface.appInterface {
 
     // NOTE: Complete
     public List<Integer> getAllApps() {
+        List<Integer> appsList = new ArrayList<Integer>();
         this.createConnection();
         try {
             CallableStatement cs;
-            List<Integer> appsList = new ArrayList<Integer>();
+
             cs = conn.prepareCall("{call appStore.dbo.getAllApps()}");
             ResultSet rs = cs.executeQuery();
             // rs stores the result of our call
@@ -119,15 +120,16 @@ public class sqlAppDB implements dbaseInterface.appInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return appsList;
     }
 
     // NOTE: Complete
     public List<Integer> getAppsInCategory(String Category) {
+        List<Integer> appsList = new ArrayList<Integer>();
         this.createConnection();
         try {
             CallableStatement cs;
-            List<Integer> appsList = new ArrayList<Integer>();
+
             cs = conn.prepareCall("{call appStore.dbo.getAppsInCatergory(?)}");
             cs.setString(1, Category);
             ResultSet rs = cs.executeQuery();
@@ -140,7 +142,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return appsList;
     }
 
     // NOTE: Complete
