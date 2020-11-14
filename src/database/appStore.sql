@@ -510,19 +510,14 @@ end
 go
 
 --PROCEDURE FOR UPDATEAPP
-create procedure updateApp @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @content varchar(50)
+create procedure updateApp @appID int, @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @content varchar(50)
 as
 begin
-	if exists(select app_details.app_ID from app_details
-				where @name = app_details.name
-				and @version = app_details.version
-				and @category = app_details.category)
+	if exists(select * from app_details where @appID = app_details.app_ID)
 	begin
 		update app_details
-		set descript = @content
-		where @name = app_details.name
-		and @version = app_details.version
-		and @category = app_details.category
+		set descript = @content, name = @name, version = @version, category = @category
+		where @appID = app_details.app_ID
 	end
 	else
 	RAISERROR('APP not Exists!',16,1)
