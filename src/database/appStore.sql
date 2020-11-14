@@ -704,3 +704,17 @@ if(@appID is not null and exists(select * from app_details where @appID = app_ID
 		select *from comments where comments.app_ID = @appID
 	end
 end
+
+go
+
+--PROCEDURE for CHECKDEVEXIST
+create procedure check_Dev_Exist @devid int, @flag int output
+as
+begin
+if(@devid is not null and exists(select * from dev_details where dev_details.dev_ID = @devid))
+begin
+	set @flag = 1
+end
+else
+	set @flag = 0
+end
