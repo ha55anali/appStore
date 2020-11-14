@@ -302,14 +302,15 @@ END
 
 go
 
+
 --PROCEDURE FOR checkAppInstall
-create procedure check_App_Install @app_id INT, @user_id INT, @installed INT output
+create procedure check_App_Install @app_id INT, @user_id INT, @version INT output
 as
 BEGIN
 if exists(select * from user_apps where user_apps.app_ID = @app_id and user_apps.user_ID = @user_id)
-	set @installed = 1
+	select @version = (select [version] from user_apps where app_ID = @app_id and user_ID = @user_id) 
 else
-	set @installed = 0
+	set @version = -1
 END
 
 go
@@ -702,4 +703,18 @@ if(@appID is not null and exists(select * from app_details where @appID = app_ID
 	begin
 		select *from comments where comments.app_ID = @appID
 	end
+end
+
+go
+
+--PROCEDURE for CHECKDEVEXIST
+create procedure check_Dev_Exist @devid int, @flag int output
+as
+begin
+if(@devid is not null and exists(select * from dev_details where dev_details.dev_ID = @devid))
+begin
+	set @flag = 1
+end
+else
+	set @flag = 0
 end

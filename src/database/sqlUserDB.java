@@ -53,7 +53,7 @@ public class sqlUserDB implements dbaseInterface.userInterface {
         Date dob = Date.valueOf(user.DOB);
         CallableStatement cs;
         try {
-            cs = conn.prepareCall("{call appStore.dbo.add_user(?,?,?,?)}");
+            cs = conn.prepareCall("{call appStore.dbo.add_user(?,?,?,?,?)}");
             cs.setString(1, user.Name);
             cs.setString(2, user.email);
             cs.setString(3, user.password);
@@ -270,7 +270,7 @@ public class sqlUserDB implements dbaseInterface.userInterface {
 
             cs.execute();
 
-            return cs.getInt(3) == 1 ? 1 : -1;
+            return cs.getInt(3);
 
         } catch (SQLException e) {
             e.printStackTrace();
