@@ -96,8 +96,6 @@ public class sqlDevDB implements dbaseInterface.devInterface {
 
     }
 
-    // appID will be assigned by database. pass dummy devID
-    // will return devID assigned to new dev
     // NOTE: Complete
     public int addUser(userDetails dev) {
         this.createConnection();
