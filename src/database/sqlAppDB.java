@@ -241,7 +241,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
         try {
             CallableStatement cs;
 
-            cs = conn.prepareCall("{call appStore.dbo.checkAppExists(?,?)}");
+            cs = conn.prepareCall("{call appStore.dbo.checkAppExits(?,?)}");
             cs.setInt(1, appID);
 
             cs.registerOutParameter(2, Types.INTEGER);
