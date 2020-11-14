@@ -193,11 +193,113 @@ public class Developer implements devInterface {
     }
 
     public void removeUser(int devID) {
+        // checking if ANY user exists or not
+        File count_file = new File("totalDevs.txt");
+        int file_status = FileControl.CheckFile(count_file);
 
-        return;
+        if (file_status == -1) // file wasn't present earlier
+            return;
+        else if (file_status == 1) // a new file is made
+        {
+            count_file.delete();
+            return;
+        }
+
+        // now we know that file exists
+        // up to the real work now. Reading file to find the userID ughh
+
+        File user_file = new File("dev_record.txt");
+        file_status = FileControl.CheckFile(user_file);
+
+        if (file_status == -1) // couldn't open file or file was't present in first place
+            return;
+        else if (file_status == 1) {
+            user_file.delete();
+            return;
+        }
+
+        // now we might find the user and have to re-write the file
+        // for that, lets copy all the users in a list first
+
+        List<userDetails> temp_list = new LinkedList<userDetails>();
+        boolean userFound = false;
+
+        try {
+            Scanner scanner = new Scanner(user_file);
+            while (scanner.hasNextLine()) { // will read the file till end
+
+                userDetails temp_user = new userDetails();
+
+                String data = scanner.nextLine();
+                try {
+                    if (Integer.valueOf(data) != devID) {
+
+                        temp_user.userID = Integer.valueOf(data); // its not the user which is to be deleted, hence
+                                                                  // storing
+                        temp_user.Name = scanner.nextLine(); // next line has name, so stored
+                        temp_user.DOB = LocalDate.parse(scanner.nextLine()); // date is converted from String to
+                                                                             // LocalDate type to store back in
+                                                                             // returning obj
+                        temp_user.password = scanner.nextLine();
+                        temp_user.email = scanner.nextLine();
+
+                        temp_list.add(temp_user);
+                    }
+
+                    else { // user deleted to be. Hence, discarding
+
+                        userFound = true;
+
+                        scanner.nextLine(); // name discarded
+                        scanner.nextLine(); // DOB discarded
+                        scanner.nextLine(); // password discarded
+                        scanner.nextLine(); // email discarded
+                    }
+                } catch (Exception ex) {
+                    continue;
+                }
+            }
+            scanner.close();
+        } catch (Exception e) {
+
+            System.out.println("An error occured in writing user file\n");
+            e.printStackTrace();
+        }
+
+        if (!userFound)
+            return;
+
+        // before writing back remaining users, lets delete user's apps in user-app
+        // record
+        removeApp(devID, -2); // this means that all the apps of this user will be deleted
+        // time to write back in file
+
+        try {
+            FileWriter writer = new FileWriter(user_file);
+
+            int total_users = temp_list.size();
+
+            for (int i = 0; i < total_users; i++) {
+
+                userDetails temp_user = new userDetails();
+                temp_user = temp_list.remove(0);
+
+                writer.write(String.valueOf(temp_user.userID) + "\n");
+                writer.write(temp_user.Name + "\n");
+                writer.write(String.valueOf(temp_user.DOB) + "\n");
+                writer.write(temp_user.password + "\n");
+                writer.write(temp_user.email + "\n");
+            }
+
+            writer.close();
+        } catch (Exception e) {
+
+            System.out.println("An error occured in writing user file in delete method\n");
+            e.printStackTrace();
+        }
     }
 
-    public int addApp(int devID, int appID) {
+    public int addApp(int devID, int appID, int ver) {
         try {
 
             // check if the user even exists. if the user does not exist, we cant add the
@@ -224,13 +326,17 @@ public class Developer implements devInterface {
                 FileControl.AppendInFile(app_file, output);
                 output = String.valueOf(appID);
                 FileControl.AppendInFile(app_file, output);
+                output = String.valueOf(ver);
+                FileControl.AppendInFile(app_file, output);
+                output = "-1";
+                FileControl.AppendInFile(app_file, output);
 
                 return 1;// card successfully added against user
             }
 
         } catch (Exception e) {
 
-            System.out.println("An error occured in writing the card file\n");
+            System.out.println("An error occured in writing the app file\n");
             e.printStackTrace();
         }
 
@@ -239,7 +345,90 @@ public class Developer implements devInterface {
 
     public void removeApp(int devID, int appID) {
 
-        return;
+        // if appID is passed as -2, it will remove all the apps of respective user
+        // this feature is added for backend logic purpose and will not be used by user
+
+        File record = new File("dev_app_record.txt");
+        int file_status = FileControl.CheckFile(record);
+
+        if (file_status == -1) // couldn't open file or file was't present in first place
+            return;
+        else if (file_status == 1) {
+            record.delete();
+            return;
+        }
+
+        // now we might find the user-app and have to re-write the file
+        // for that, lets copy all the users-apps in a list first
+
+        List<Integer> temp_list = new LinkedList<Integer>();
+        boolean userFound = false;
+
+        try {
+            Scanner scanner = new Scanner(record);
+            while (scanner.hasNextLine()) { // will read the file till end
+
+                String data = scanner.nextLine(); // if it reads one line, then it means it must have next 4 lines too
+                try {
+                    if (Integer.valueOf(data) != devID) {
+
+                        // its not the user we want to delete, so we'll save its data to re-write later
+                        temp_list.add(Integer.valueOf(data)); // userID
+                        temp_list.add(Integer.valueOf(scanner.nextLine())); // appID
+                        temp_list.add(Integer.valueOf(scanner.nextLine())); // version
+                        temp_list.add(Integer.valueOf(scanner.nextLine())); // rating
+                    }
+
+                    else { // user deleted to be. Now checking for app
+
+                        String data2 = scanner.nextLine();
+                        if (appID == Integer.valueOf(data2) || appID == -2) { // app found. Not storing its data in list
+
+                            userFound = true;
+                            scanner.nextLine(); // version discarded
+                            scanner.nextLine(); // rating discarded
+                        } else {
+
+                            // not the app we are looking, save the data
+                            temp_list.add(Integer.valueOf(data));
+                            temp_list.add(Integer.valueOf(data2));
+                            temp_list.add(Integer.valueOf(scanner.nextLine())); // version
+                            temp_list.add(Integer.valueOf(scanner.nextLine())); // rating
+                        }
+                    }
+                } catch (Exception ex) {
+                    continue;
+                }
+            }
+            scanner.close();
+        } catch (Exception e) {
+
+            System.out.println("An error occured in deleting app-user record\n");
+            e.printStackTrace();
+        }
+
+        if (!userFound)
+            return;
+
+        // time to write back in file
+
+        try {
+            FileWriter writer = new FileWriter(record);
+
+            // our data is already in sequence. We'll just write it down in order
+            for (int i = 0; i < temp_list.size(); i++) {
+
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // userID written
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // appID
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // version
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // rating
+            }
+
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("An error occured in writing app-user file in delete method\n");
+            e.printStackTrace();
+        }
 
     }
 
