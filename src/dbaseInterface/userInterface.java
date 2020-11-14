@@ -23,12 +23,10 @@ public interface userInterface
     // -1 if not installed
     public int checkAppInstall(int appID, int userID);
 
-    public void setPaymentMethod(int userID, String method);
-
     public boolean changeCardDetails(int userID, int cardNo, int NewExpYear);
 
     //return 1 if email is being used by some user
-    public boolean checkEmailExists(String email);
+    public int checkEmailExists(String email);
 
     // if user or app does not exists, throw invalidargumentexception
     public boolean removeCardDetails(int userID, int cardNo);

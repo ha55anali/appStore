@@ -1,10 +1,8 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Scanner;
+package dbaseInterface;
 
-// package dbaseInterface;
+import java.io.*;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Developer implements devInterface {
 
@@ -265,6 +263,7 @@ public class Developer implements devInterface {
                     int app = Integer.valueOf(line.nextLine());
 
                     if (id == devID && app == appID) {
+                        line.close();
                         return true;
                     }
                 }

@@ -1,4 +1,4 @@
-// package dbaseInterface;
+package dbaseInterface;
 
 //assume all parameters passed are correct
 public interface devInterface {
@@ -11,7 +11,7 @@ public interface devInterface {
 
     public void removeUser(int devID);
 
-    public void addApp(int devID, int appID);
+    public int addApp(int devID, int appID);
 
     public void removeApp(int devID, int appID);
 

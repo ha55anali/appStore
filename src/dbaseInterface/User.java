@@ -1,4 +1,4 @@
-// package dbaseInterface;
+package dbaseInterface;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -58,6 +58,39 @@ public class User implements userInterface {
     }
 
     public void addInstalledApp(int appID, int userID, int ver) {
+
+        // opening the record file
+        File record = new File("app-user-record.txt");
+        int file_status = FileControl.CheckFile(record);
+
+        if (file_status == -1) // couldn't make file
+            return;
+
+        else { // file created or exists        
+
+            // now file has opened, we have to append the new data
+            // in record file despite knowing what data it had previously
+
+            String output; // this string will contain all the required user info to be printed
+            /*
+                * Syntax of filing:
+                * userID
+                * appID
+                * version
+                * rating
+                */
+
+            output = String.valueOf(userID);
+            FileControl.AppendInFile(record, output); // this call will append new user data into our file
+            output = String.valueOf(appID);
+            FileControl.AppendInFile(record, output);
+            output = String.valueOf(ver);
+            FileControl.AppendInFile(record, output);
+            output = "-1";
+            FileControl.AppendInFile(record, output);
+
+            return;
+        }
     }
 
     public boolean authenticateUser(int userID, String password) {
@@ -222,6 +255,7 @@ public class User implements userInterface {
                 writer.write("");
             } catch (Exception e) {
                 e.printStackTrace();
+                writer.close();
                 return false;
             }
 
@@ -347,7 +381,6 @@ public class User implements userInterface {
             e.printStackTrace();
             return false;
         }
-
         return true;
     }
 
@@ -373,6 +406,7 @@ public class User implements userInterface {
                     int exp = Integer.valueOf(line.nextLine());
 
                     if (card == cardNo && id == userID) {
+                        line.close();
                         return true;
                     }
                 }
@@ -391,14 +425,14 @@ public class User implements userInterface {
 
     }
 
-    public boolean checkEmailExists(String email) {
+    public int checkEmailExists(String email) {
 
         // first we check if users even exist or not
         File count_file = new File("totalUsers.txt");
         int file_status = FileControl.CheckFile(count_file);
 
         if (file_status == -1 || file_status == 1) // file wasn't present earlier
-            return false;
+            return -1;
 
         // now we know that file exists
         // up to the real work now. Reading file to find the userID ughh
@@ -407,7 +441,7 @@ public class User implements userInterface {
         file_status = FileControl.CheckFile(user_file);
 
         if (file_status == -1 || file_status == 1) // couldn't open file or file wasn't present
-            return false;
+            return -1;
 
         try {
             Scanner scanner = new Scanner(user_file);
@@ -418,7 +452,7 @@ public class User implements userInterface {
                 // information of user
 
                 // skipping useless information
-                scanner.nextLine(); // userID -> we don't need this
+                String user = scanner.nextLine(); // userID -> in case we'd have to return it
                 scanner.nextLine(); // name -> don't need
                 scanner.nextLine(); // DOB -> useless
                 scanner.nextLine(); // password -> nahhh
@@ -428,21 +462,21 @@ public class User implements userInterface {
                     if (data == email) { // user found
 
                         scanner.close();
-                        return true;
+                        return Integer.valueOf(user);
                     }
                 } catch (Exception ex) {
                     continue;
                 }
             }
             scanner.close();
-            return false;
+            return -1;
         } catch (Exception e) {
 
             System.out.println("An error occured in checking for email\n");
             e.printStackTrace();
         }
 
-        return false;
+        return -1;
     }
 
     public int addUser(userDetails user) {
@@ -686,15 +720,10 @@ public class User implements userInterface {
     // made this main() to test the functions ill be making in this class
     public static void main(String[] args) {
 
-        LocalDate dobby = LocalDate.now();
-        User testing = new User();
-        userDetails ob = new userDetails("nushipishi", 13233, dobby, "nushi@pishi.pp", "omgitshappening");
-        int userID = testing.addUser(ob);
-
-        // System.out.println(testing.addCard(userID, 7837823, LocalDate.now().getYear()
-        // + 10));
-        // System.out.println(testing.changeCardDetails(30, 12345667, 2035));
-        System.out.println(testing.removeCardDetails(56, 7837823));
+        // LocalDate dobby = LocalDate.now();
+        // User testing = new User();
+        // userDetails ob = new userDetails("afafa", 13233, dobby, "afaq@gmail.com", "NOOO");
+        // int userID = testing.addUser(ob);
 
         // for (int i = 1; i < 9; i++) {
         // userDetails obj = testing.getUserDetails(i);
@@ -708,5 +737,7 @@ public class User implements userInterface {
         // }
 
         // testing.removeUser(3);
+
+        // testing.addInstalledApp(3, 4, 1);
     }
 }
