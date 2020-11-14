@@ -11,7 +11,7 @@ public interface devInterface {
 
     public void removeUser(int devID);
 
-    public int addApp(int devID, int appID);
+    public int addApp(int devID, int appID, int ver);
 
     public void removeApp(int devID, int appID);
 
