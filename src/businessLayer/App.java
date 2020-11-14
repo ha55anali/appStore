@@ -3,14 +3,22 @@ package businessLayer;
 // import blInterface.*;
 // import dbaseInterface.*;
 import java.util.*;
+import java.util.Locale.Category;
 
-class App implements blInterface.appInterface {
+class App implements blInterface.individualAppInterface, blInterface.AppCollectionInterface {
     dbaseInterface.appInterface dbApp;
     dbaseInterface.userInterface dbUser;
+    List<String> CategoryList;
 
     public App() {
         dbApp = dbaseInterface.dbFactory.getAppObject();
         dbUser = dbaseInterface.dbFactory.getUserObject();
+
+        CategoryList = new ArrayList<String>();
+        CategoryList.add("Games");
+        CategoryList.add("Productivity");
+        CategoryList.add("Education");
+        CategoryList.add("Communication");
     }
 
     public blInterface.App showDetails(int AppID) {
@@ -38,6 +46,16 @@ class App implements blInterface.appInterface {
     }
 
     public List<blInterface.App> showAppsinCategory(String Category) {
+        int validCat=0;
+        for (int i=0; i < CategoryList.size(); ++i)
+        {
+            if (CategoryList.get(i).equals(Category)){
+                validCat=1;
+                break;
+            }
+        }
+        if (validCat==0)
+            throw new IllegalArgumentException("Invalid category");
         //get list of AppIDs
         List<Integer> appList = dbApp.getAppsInCategory(Category);
 
@@ -48,22 +66,28 @@ class App implements blInterface.appInterface {
         return apps;
     }
 
-    public String installApp(int AppID, int userID, int ver) {
+    public List<String> getCategoryList()
+    {
+        return CategoryList;
+    }
+
+    public void installApp(int AppID, int userID) {
         if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) //valid app
             throw new IllegalArgumentException("Invalid app");
         else if (Boolean.compare(dbUser.checkUserExists(userID), true)==0 ) //valid user
             throw new IllegalArgumentException("Invalid user");
         else
         {
+            dbaseInterface.appDetails app =dbApp.getAppDetails(AppID);
+
             //add app to user data
-            dbUser.addInstalledApp(AppID, userID, ver);
-            return dbApp.getAppContent(AppID);
+            dbUser.addInstalledApp(AppID, userID, app.Version);
         }
     }
 
-    public String updateApp(int AppID, int userID) {
+    public int updateApp(int AppID, int userID) {
         if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) //check valid app
-            throw new IllegalArgumentException("Invalid app");
+            return -1;
         else if (Boolean.compare(dbUser.checkUserExists(userID), true)==0 ) //valid user
             throw new IllegalArgumentException("Invalid user");
         else
@@ -74,15 +98,13 @@ class App implements blInterface.appInterface {
             blInterface.App app = returnblApp(AppID);
 
             if (installedVer == app.Version)
-                throw new IllegalArgumentException("latest app already installed");
+                return -1;
 
-            //return latest app content
-            return dbApp.getAppContent(AppID);
-
+            return 1;
         }
     }
 
-    public void removeApp(int AppID, int userID) {
+    public int removeApp(int AppID, int userID) {
         if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) //check valid app
             throw new IllegalArgumentException("Invalid app");
         else if (Boolean.compare(dbUser.checkUserExists(userID), true)==0 ) //valid user
@@ -91,8 +113,9 @@ class App implements blInterface.appInterface {
         {
             //check if user has app installed
             if (dbUser.checkAppInstall(AppID, userID) == -1)
-                throw new IllegalArgumentException("User does not have this app installed");
+                return -1;
             dbUser.removeInstalledApp(AppID, userID);
+            return 1;
         }
     }
 
@@ -128,7 +151,7 @@ class App implements blInterface.appInterface {
 
         dbaseInterface.appDetails app = dbApp.getAppDetails(AppID);
 
-        blInterface.App appDet = new blInterface.App(app.AppID, app.Name, app.Description, app.Version, app.Ratings, app.avgRatings, app.Reviews);
+        blInterface.App appDet = new blInterface.App(app.AppID, app.Name, app.Description, app.Version, app.Category,app.Ratings, app.avgRatings, app.Reviews);
 
         return appDet;
     }
