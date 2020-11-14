@@ -7,9 +7,12 @@ JC = javac
 	$(JC) $(JFLAGS) $*.java
 
 CLASSES = \
+	   businessLayer/tests/test.java \
 	   businessLayer/blFactory.java \
 	   dbaseInterface/devInterface.java \
 	   businessLayer/individualAppInterface.java \
+	   businessLayer/App.java \
+	   businessLayer/tests/dummyDB.java \
 	   businessLayer/AppCollectionInterface.java \
 	   businessLayer/blFactory.java \
 	   blInterface/appInterface.java \
@@ -23,6 +26,9 @@ CLASSES = \
 	   dbaseInterface/appDetails.java \
 	   dbaseInterface/dbFactory.java \
 	   dbaseInterface/userInterface.java
+	   businessLayer/User.java
+
+
 		  
 default: classes
 

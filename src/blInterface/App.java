@@ -12,8 +12,9 @@ public class App
     public List<Integer> Ratings;
     public int avgRatings;
     public List<String> Reviews;
+    public String Category;
 
-    public App(int ID, String AppName, String AppDescription, int Ver, List<Integer> UserRatings, int aRating, List<String> UserReviews )
+    public App(int ID, String AppName, String AppDescription, int Ver,String cat, List<Integer> UserRatings, int aRating, List<String> UserReviews )
     {
         AppID=ID;
         Name=AppName;
@@ -26,6 +27,7 @@ public class App
         Reviews=new ArrayList<String>();
         for(String i : UserReviews)
             Reviews.add(i);
+        Category=cat;
     }
 
 }
