@@ -102,7 +102,7 @@ PRIMARY KEY(app_ID, dev_ID)
 go
 
 --PROCEDURE FOR ADD USER
-CREATE PROCEDURE add_user @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE
+CREATE PROCEDURE add_user @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE, @userid int output 
 as
 Begin
 	if (@email is not null)
@@ -116,6 +116,7 @@ Begin
 		  if not exists(select * from user_details where @email = user_details.email)
 		  begin
 		  insert into user_details(name,email,password,date_of_birth) values (@name, @email, @password, @date_of_birth)
+		  select @userid = (select user_details.user_ID from user_details where @email = email and @password = password)
 		  end
 		  else
 		  RAISERROR('User Account is already present!',16,1)
@@ -132,7 +133,6 @@ Begin
 	else
 	RAISERROR('Email is incorrect!',16,1)
 End
-
 go
 
 --PROCEDURE FOR REMOVE USER
@@ -153,8 +153,8 @@ END
 
 go
 
--- PROCEDURE FOR USER SIGNIN
-create procedure signin @email varchar(50),@password varchar(20)
+-- PROCEDURE FOR AUTHENTICATE USER
+create procedure authenticate_user @email varchar(50),@password varchar(20), @userid int output
 as
 Begin
 	if (@email is not null)
@@ -166,7 +166,14 @@ Begin
 		else
 			begin
 			  if not exists(select * from user_details where @email=email and [password]=@password)
+			  begin
+			  set @userid = -1
 			  RAISERROR('Password is incorrect',16,1)
+			  end
+			  else
+			  begin
+			  set @userid = (select user_ID from user_details where @email = email and @password = [password])
+			  end
 			end
 		end
 	 else
@@ -264,22 +271,6 @@ end
 else
 RAISERROR('Application Not Exists',16,1)
 end
-
-go
---PROCEDURE FOR AUTHENTICATE_USER
-create procedure authenticate_user @user_id INT, @password varchar(50), @authenticate INT output
-as
-BEGIN
-if(@user_id is not null and @password is not null and exists(select * from user_details where user_details.user_ID = @user_id and @password = user_details.password))
-	begin
-		set @authenticate = 1
-	end
-	else
-	begin
-	set @authenticate = 0
-	RAISERROR('Password Incorrect!!',16,1)
-	end
-END
 
 go
 --PROCEDURE FOR ADD CARD
