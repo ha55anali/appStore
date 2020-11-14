@@ -18,7 +18,7 @@ import java.io.IOException;
 public class LoginScreenController{
 
     @FXML
-    TextField usernameField;
+    TextField emailField;
 
     @FXML
     PasswordField passwordField;
@@ -45,20 +45,31 @@ public class LoginScreenController{
         window.show();
     }
 
+    public void developerToolsButtonPressed(ActionEvent event) throws IOException{
+        Parent root_devStartupScreen = FXMLLoader.load(getClass().getResource("../devLoginScreen/devLoginScreen.fxml"));
+        Scene scene_devStartupScreen = new Scene(root_devStartupScreen);
+
+        //This line gets the Stage information
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+
+        window.setScene(scene_devStartupScreen);
+        window.show();
+    }
+
     public void validateLoginDetails()
     {
-        usernameField.setBorder(new Border(new BorderStroke(Color.TRANSPARENT,
+        emailField.setBorder(new Border(new BorderStroke(Color.TRANSPARENT,
                 BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT)));;
 
         passwordField.setBorder(new Border(new BorderStroke(Color.TRANSPARENT,
                 BorderStrokeStyle.NONE, CornerRadii.EMPTY, BorderWidths.DEFAULT)));;
 
-        if(usernameField.getText().trim().isEmpty()==true)
+        if(emailField.getText().trim().isEmpty()==true)
         {
-            usernameField.setBorder(new Border(new BorderStroke(Color.RED,
+            emailField.setBorder(new Border(new BorderStroke(Color.RED,
                     BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));;
 
-            usernameField.setPromptText("Username can not be blank");
+            emailField.setPromptText("Username can not be blank");
         }
 
         if(passwordField.getText().isEmpty()==true)

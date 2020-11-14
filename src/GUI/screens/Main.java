@@ -1,5 +1,8 @@
 package GUI.screens;
 
+import GUI.screens.appList.AppListController;
+import GUI.screens.loginScreen.LoginScreenController;
+import GUI.screens.splashScreen.SplashScreenController;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
@@ -10,13 +13,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import GUI.screens.loginScreen.LoginScreenController;
-import GUI.screens.splashScreen.SplashScreenController;
-
 
 import java.io.IOException;
 
+
 public class Main extends Application{
+    private static Stage primaryStage;
+
+    private void setPrimaryStage(Stage stage){
+        Main.primaryStage=stage;
+    }
+
+    static public Stage getPrimaryStage(){
+        return Main.primaryStage;
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -28,8 +38,12 @@ public class Main extends Application{
         SplashScreenController splashScreenController = loader_splashScreen.getController();
         ImageView splashScreenLogo = splashScreenController.getLogo();
         Text splashScreenText = splashScreenController.getText();
-        viewSplashScreen(primaryStage, splashScreenLogo, splashScreenText, root_splashScreen);
+        //viewSplashScreen(primaryStage, splashScreenLogo, splashScreenText, root_splashScreen);
 
+        FXMLLoader loader = new FXMLLoader(AppListController.class.getResource("/GUI/screens/devPanel/devPanel.fxml"));
+        Parent root = loader.load();
+        primaryStage.setScene(new Scene(root, 1000, 800));
+        primaryStage.show();
     }
 
     public static void main(String[] args) {

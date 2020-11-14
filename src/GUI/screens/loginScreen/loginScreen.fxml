@@ -44,7 +44,7 @@
                      </font>
                   </Text>
                   <Region prefHeight="75.0" prefWidth="10.0" />
-                  <TextField id="usernameField" fx:id="usernameField" promptText="Username">
+                  <TextField id="usernameField" fx:id="emailField" promptText="Email">
                      <font>
                         <Font name="Fira Sans Light" size="24.0" />
                      </font>
@@ -93,7 +93,7 @@
                         <Font name="Fira Sans Light" size="24.0" />
                      </font>
                   </Text>
-                  <Button id="signupButton" fx:id="developerToolsButton" layoutX="174.0" layoutY="584.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="Check Developer Tools" textFill="#323f4c" underline="true">
+                  <Button id="signupButton" fx:id="developerToolsButton" layoutX="174.0" layoutY="584.0" mnemonicParsing="false" onAction="#developerToolsButtonPressed" style="-fx-background-color: transparent;" text="Check Developer Tools" textFill="#323f4c" underline="true">
                      <font>
                         <Font name="Fira Sans Light Italic" size="24.0" />
                      </font>

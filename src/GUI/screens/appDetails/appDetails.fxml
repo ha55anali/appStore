@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.screens.appDetails.AppDetailsController">
+   <children>
+      <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #252a36; -fx-border-width: 0 0 2 0; -fx-border-style: solid; -fx-border-color: #152028;">
+         <children>
+            <Text fx:id="headerText" fill="WHITE" layoutX="446.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="App Name">
+               <font>
+                  <Font name="Fira Sans Medium" size="19.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="userProfileIcon" fitHeight="30.0" fitWidth="30.0" layoutX="956.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/userProfileIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="userProfileIcon1" fitHeight="30.0" fitWidth="30.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/backIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: #323f4c;">
+         <children>
+            <HBox prefHeight="175.0" prefWidth="1000.0" style="-fx-alignment: center_left;">
+               <children>
+                  <AnchorPane prefHeight="175.0" prefWidth="535.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Calculator" wrappingWidth="561.7294921875">
+                           <font>
+                              <Font name="Fira Sans Medium" size="46.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Version: ">
+                           <font>
+                              <Font name="Fira Sans Light" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="14.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Published By: ">
+                           <font>
+                              <Font name="Fira Sans Light" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="91.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2.1.4">
+                           <font>
+                              <Font name="Fira Sans Light" size="20.0" />
+                           </font>
+                        </Text>
+                        <Text fill="WHITE" layoutX="140.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Noshalwar">
+                           <font>
+                              <Font name="Fira Sans Light" size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <Region prefHeight="175.0" prefWidth="185.0" HBox.hgrow="NEVER" />
+                  <Button mnemonicParsing="false" prefWidth="95.0" style="-fx-background-color: #152028; -fx-background-radius: 60;" text="Update" textFill="WHITE">
+                     <font>
+                        <Font name="Fira Sans Light" size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </Button>
+                  <Button layoutX="836.0" layoutY="79.0" mnemonicParsing="false" prefWidth="95.0" style="-fx-background-color: #152028; -fx-background-radius: 60;" text="Install" textFill="WHITE">
+                     <font>
+                        <Font name="Fira Sans Light" size="19.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </HBox>
+            <Spinner fx:id="ratingSpinner" editable="true" layoutX="113.0" layoutY="239.0" prefHeight="30.0" prefWidth="65.0" />
+            <Text fill="WHITE" layoutX="14.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rating: ">
+               <font>
+                  <Font name="Fira Sans Light" size="30.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="14.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average Rating: ">
+               <font>
+                  <Font name="Fira Sans Light" size="30.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="227.0" layoutY="221.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+               <font>
+                  <Font name="Fira Sans Light" size="30.0" />
+               </font>
+            </Text>
+            <Button layoutX="825.0" layoutY="211.0" mnemonicParsing="false" style="-fx-background-color: #152028; -fx-background-radius: 60;" text="Submit Rating" textFill="WHITE">
+               <font>
+                  <Font name="Fira Sans Light" size="19.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <Text fill="WHITE" layoutX="14.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comment:">
+               <font>
+                  <Font name="Fira Sans Light" size="30.0" />
+               </font>
+            </Text>
+            <TextArea layoutX="172.0" layoutY="312.0" prefHeight="175.0" prefWidth="360.0" />
+            <Button layoutX="798.0" layoutY="375.0" mnemonicParsing="false" style="-fx-background-color: #152028; -fx-background-radius: 60;" text="Submit Comment" textFill="WHITE">
+               <font>
+                  <Font name="Fira Sans Light" size="19.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Button>
+            <ListView fx:id="commentsListView" layoutX="178.0" layoutY="515.0" prefHeight="200.0" prefWidth="794.0" />
+            <Text fill="WHITE" layoutX="14.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Previous">
+               <font>
+                  <Font name="Fira Sans Light" size="30.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="14.0" layoutY="656.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Comments:">
+               <font>
+                  <Font name="Fira Sans Light" size="30.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

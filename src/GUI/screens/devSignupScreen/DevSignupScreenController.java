@@ -1,6 +1,6 @@
-package GUI.screens.signupScreen;
+package GUI.screens.devSignupScreen;
 
-import GUI.screens.categoriesList.CategoriesListController;
+import GUI.screens.devPanel.DevPanelController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,17 +15,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
-public class SignupScreenController {
-    @FXML
-    Button loginButton;
+public class DevSignupScreenController {
 
     @FXML
-    Button signupButton;
-
-    @FXML
-    PasswordField passwordField;
+    Button devLoginHereButton;
 
     @FXML
     TextField fullnameField;
@@ -34,23 +28,23 @@ public class SignupScreenController {
     TextField emailField;
 
     @FXML
+    PasswordField passwordField;
+
+    @FXML
     PasswordField confirmPasswordField;
 
-    int userID;
+    int developerID;
 
-    public void loginButtonPressed(ActionEvent event) throws IOException
-    {
-        Parent root_login = FXMLLoader.load(getClass().getResource("../loginScreen/loginScreen.fxml"));
-        Scene loginScene = new Scene(root_login);
+    public void devLoginHereButtonPressed(ActionEvent event) throws IOException {
+        Parent root_devLogin = FXMLLoader.load(getClass().getResource("../devLoginScreen/devLoginScreen.fxml"));
+        Scene scene_devLoginScreen = new Scene(root_devLogin);
 
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
 
-        window.setScene(loginScene);
+        window.setScene(scene_devLoginScreen);
         window.show();
     }
-
-
 
     public void validateSignupDetails(ActionEvent event) throws IOException {
         int flag=0;
@@ -110,51 +104,29 @@ public class SignupScreenController {
         }
         if(flag==0)
         {
-            addUserToDB(event);
+            addDeveloperToDB(event);
+            System.out.println("DEVELOPER ADDED");
         }
     }
 
-    private void addUserToDB(ActionEvent event) throws IOException {
 
-        blInterface.userInterface user = new businessLayer.User();
-        blInterface.userDetails deets = new blInterface.userDetails(fullnameField.getText(), 4, LocalDate.now().minusYears(20),
-                emailField.getText(), passwordField.getText());
-        try {
-            userID=user.addUser(deets);
-            //deets = user.getUserDetails();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void addDeveloperToDB(ActionEvent event) throws IOException {
+        //add db functionality here
 
 
-        FXMLLoader categoriesListLoader= new FXMLLoader(getClass().getResource("../categoriesList/categoriesList.fxml"));
-        Parent root_categoriesList = categoriesListLoader.load();
-        CategoriesListController categoriesListController = categoriesListLoader.getController();
-        categoriesListController.setUserID(this.userID);
-        Scene categoriesList = new Scene(root_categoriesList);
+        FXMLLoader devPanelLoader= new FXMLLoader(getClass().getResource("../devPanel/devPanel.fxml"));
+        Parent root_devPanel= devPanelLoader.load();
+        DevPanelController devPanelController= devPanelLoader.getController();
+        devPanelController.setDeveloperID(this.developerID);
+        Scene categoriesList = new Scene(root_devPanel);
 
         //This line gets the Stage information
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        System.out.println(userID+" in signup addUserToDB");
+        //System.out.println(userID+" in signup addUserToDB");
         //window.setUserData(userID);
 
         window.setScene(categoriesList);
         window.show();
-
-//        FXMLLoader afaqPicLoader= new FXMLLoader(getClass().getResource("../afaqPic/afaqPic.fxml"));
-//
-//        Parent root_afaqPic = afaqPicLoader.load();
-//        Scene afaqScene = new Scene(root_afaqPic);
-//        Stage afaqStage = new Stage();
-//        afaqStage.setScene(afaqScene);
-//        afaqStage.show();
-
-
-
-
     }
 
-    public int getUserID() {
-        return userID;
-    }
 }
