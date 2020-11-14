@@ -625,3 +625,56 @@ end
 else
 RAISERROR('Application Not Exists',16,1)
 end
+
+go
+
+create procedure check_app_dev @devID int, @appID int, @flag int output
+as
+Begin
+if(@appID is not null and @devID is not null and exists(select * from dev_apps where app_ID = @appID and @devID = dev_ID))
+begin
+	set @flag = 1
+end
+else
+	set @flag = 0
+end
+
+go 
+
+create procedure check_Email_Exists_dev @email varchar(50), @flag int output
+as
+begin
+if(@email is not null and exists(select * from dev_details where dev_details.email = @email))
+begin
+	set @flag = 1
+end
+else
+	set @flag = 0
+end
+
+go
+
+create procedure authenticate_User_dev @email varchar(50), @pass varchar(50), @devid int output
+as
+begin
+if(@email is not null and @pass is not null)
+	if exists(select * from dev_details where @email = email and @pass = password)
+	begin
+		select @devid = (select dev_details.dev_ID from  dev_details where @email = dev_details.email and dev_details.password = @pass)
+	end
+	else
+	begin
+		set @devid = -1
+	end
+end
+
+go
+
+create procedure get_Dev_Apps @devID int
+as
+begin
+if(@devID is not null)
+begin
+	select dev_apps.app_ID from dev_apps where dev_apps.dev_ID = @devID
+end
+end
