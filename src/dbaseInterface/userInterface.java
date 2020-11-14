@@ -15,7 +15,7 @@ public interface userInterface
 
     public int addCard(int userID, int cardNo, int ExpYear);
 
-    public boolean authenticateUser(int userID, String password);
+    public int authenticateUser(String email, String password);
 
     public void removeInstalledApp(int appID, int userID);
 
@@ -26,7 +26,7 @@ public interface userInterface
     public boolean changeCardDetails(int userID, int cardNo, int NewExpYear);
 
     //return 1 if email is being used by some user
-    public int checkEmailExists(String email);
+    public boolean checkEmailExists(String email);
 
     // if user or app does not exists, throw invalidargumentexception
     public boolean removeCardDetails(int userID, int cardNo);

@@ -60,28 +60,24 @@ public class User implements userInterface {
     public void addInstalledApp(int appID, int userID, int ver) {
 
         // opening the record file
-        File record = new File("app-user-record.txt");
+        File record = new File("app_user_record.txt");
         int file_status = FileControl.CheckFile(record);
 
         if (file_status == -1) // couldn't make file
             return;
 
-        else { // file created or exists        
+        else { // file created or exists
 
             // now file has opened, we have to append the new data
             // in record file despite knowing what data it had previously
 
             String output; // this string will contain all the required user info to be printed
             /*
-                * Syntax of filing:
-                * userID
-                * appID
-                * version
-                * rating
-                */
+             * Syntax of filing: userID appID version rating
+             */
 
             output = String.valueOf(userID);
-            FileControl.AppendInFile(record, output); // this call will append new user data into our file
+            FileControl.AppendInFile(record, output); // this call will append new data into our file
             output = String.valueOf(appID);
             FileControl.AppendInFile(record, output);
             output = String.valueOf(ver);
@@ -93,78 +89,203 @@ public class User implements userInterface {
         }
     }
 
-    public boolean authenticateUser(int userID, String password) {
+    public int authenticateUser(String email, String password) {
 
         // first we check if users even exist or not
         File count_file = new File("totalUsers.txt");
         int file_status = FileControl.CheckFile(count_file);
 
         if (file_status == -1 || file_status == 1) // file wasn't present earlier
-            return false;
+            return -1;
 
         // now we know that file exists
-        // up to the real work now. Reading file to find the userID ughh
+        // up to the real work now. Reading file to find the email ughh
 
         File user_file = new File("user_record.txt");
         file_status = FileControl.CheckFile(user_file);
 
         if (file_status == -1 || file_status == 1) // couldn't open file or file wasn't present
-            return false;
+            return -1;
 
         try {
             Scanner scanner = new Scanner(user_file);
             while (scanner.hasNextLine()) { // will read the file till end
 
+                int userID = Integer.valueOf(scanner.nextLine());   //in case we'll have to return it
+                
+                // skipping the next 2 lines of name, DOB
+                scanner.nextLine();
+                scanner.nextLine();
+                 
+                String pass = scanner.nextLine();   //password stored to compare later
                 String data = scanner.nextLine();
                 try {
-                    if (Integer.valueOf(data) == userID) { // user found
+                    
+                    if (data.equals(email)) { // user found
 
                         // now we have to see if the password matched the given password
 
-                        scanner.nextLine(); // name of user
-                        scanner.nextLine(); // DOB of user
-
-                        if (scanner.nextLine() == password) {
+                        if (pass.equals(password)) {
 
                             scanner.close();
-                            return true;
+                            return userID;
                         } else {
 
                             scanner.close();
-                            return false;
+                            return -1;
                         }
-                    } else {
-
-                        // skipping the next 4 lines of name, DOB, password, email
-                        scanner.nextLine();
-                        scanner.nextLine();
-                        scanner.nextLine();
-                        scanner.nextLine();
                     }
                 } catch (Exception ex) {
                     continue;
                 }
             }
             scanner.close();
-            return false;
+            return -1;
         } catch (Exception e) {
 
             System.out.println("An error occured in authenticating user\n");
             e.printStackTrace();
         }
 
-        return false;
+        return -1;
     }
 
     public void removeInstalledApp(int appID, int userID) {
+
+        // if appID is passed as -2, it will remove all the apps of respective user
+        // this feature is added for backend logic purpose and will not be used by user
+
+        File record = new File("app_user_record.txt");
+        int file_status = FileControl.CheckFile(record);
+
+        if (file_status == -1) // couldn't open file or file was't present in first place
+            return;
+        else if (file_status == 1) {
+            record.delete();
+            return;
+        }
+
+        // now we might find the user-app and have to re-write the file
+        // for that, lets copy all the users-apps in a list first
+
+        List<Integer> temp_list = new LinkedList<Integer>();
+        boolean userFound = false;
+
+        try {
+            Scanner scanner = new Scanner(record);
+            while (scanner.hasNextLine()) { // will read the file till end
+
+                String data = scanner.nextLine(); // if it reads one line, then it means it must have next 4 lines too
+                try {
+                    if (Integer.valueOf(data) != userID) {
+
+                        // its not the user we want to delete, so we'll save its data to re-write later
+                        temp_list.add(Integer.valueOf(data)); // userID
+                        temp_list.add(Integer.valueOf(scanner.nextLine())); // appID
+                        temp_list.add(Integer.valueOf(scanner.nextLine())); // version
+                        temp_list.add(Integer.valueOf(scanner.nextLine())); // rating
+                    }
+
+                    else { // user deleted to be. Now checking for app
+
+                        String data2 = scanner.nextLine();
+                        if (appID == Integer.valueOf(data2) || appID == -2) { // app found. Not storing its data in list
+
+                            userFound = true;
+                            scanner.nextLine(); // version discarded
+                            scanner.nextLine(); // rating discarded
+                        } else {
+
+                            // not the app we are looking, save the data
+                            temp_list.add(Integer.valueOf(data));
+                            temp_list.add(Integer.valueOf(data2));
+                            temp_list.add(Integer.valueOf(scanner.nextLine())); // version
+                            temp_list.add(Integer.valueOf(scanner.nextLine())); // rating
+                        }
+                    }
+                } catch (Exception ex) {
+                    continue;
+                }
+            }
+            scanner.close();
+        } catch (Exception e) {
+
+            System.out.println("An error occured in deleting app-user record\n");
+            e.printStackTrace();
+        }
+
+        if (!userFound)
+            return;
+
+        // time to write back in file
+
+        try {
+            FileWriter writer = new FileWriter(record);
+
+            // our data is already in sequence. We'll just write it down in order
+            for (int i = 0; i < temp_list.size(); i++) {
+
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // userID written
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // appID
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // version
+                writer.write(String.valueOf(temp_list.remove(0)) + "\n"); // rating
+            }
+
+            writer.close();
+        } catch (Exception e) {
+            System.out.println("An error occured in writing app-user file in delete method\n");
+            e.printStackTrace();
+        }
     }
 
     public int checkAppInstall(int appID, int userID) {
 
-        return 0;
+        File record = new File("app_user_record.txt");
+        int file_status = FileControl.CheckFile(record);
+
+        if (file_status == -1 || file_status == 1) // couldn't open file or file wasn't present
+            return -1;
+
+        try {
+            Scanner scanner = new Scanner(record);
+            while (scanner.hasNextLine()) { // will read the file till end
+
+                // if file has this next line, it means file has a userID,
+                // and if there's a userID, it means it is followed by 3 more lines having
+                // appID, version, rating
+
+                String data = scanner.nextLine(); // userID, the thing we are concerned right now
+                try {
+                    if (Integer.valueOf(data) == userID) { // user found, now search for app
+
+                        data = scanner.nextLine(); // appID
+                        if (Integer.valueOf(data) == appID) { // appID found. Perfect match. Now return version
+
+                            data = scanner.nextLine(); // version
+                            scanner.close();
+                            return Integer.valueOf(data);
+                        }
+                    }
+                } catch (Exception ex) {
+                    continue;
+                }
+
+                // user not found, skipping useless information
+                scanner.nextLine(); // appID, not concern
+                scanner.nextLine(); // version -> don't need
+                scanner.nextLine(); // rating -> useless
+            }
+            scanner.close();
+            return -1;
+        } catch (Exception e) {
+
+            System.out.println("An error occured in checking for email\n");
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 
-    // NOTE: NUSHIPISHI CODING OVER HERE HEHE
     public int addCard(int userID, int cardNo, int ExpYear) {
         try {
 
@@ -208,8 +329,6 @@ public class User implements userInterface {
 
     }
 
-    // NOTE: YEAH IDER BHI
-    // Done :p
     public boolean changeCardDetails(int userID, int cardNo, int NewExpYear) {
         if (checkUserCard(userID, cardNo)) {
             return false;
@@ -289,7 +408,6 @@ public class User implements userInterface {
         return true;
     }
 
-    // NOTE: NICE THIS TOO
     public boolean removeCardDetails(int userID, int cardNo) {
         if (!checkUserCard(userID, cardNo)) {
             return false;
@@ -384,8 +502,6 @@ public class User implements userInterface {
         return true;
     }
 
-    // NOTE: TUNAY KIYA KYA HAI BAY? >:(
-    // done :p
     public boolean checkUserCard(int userID, int cardNo) {
         try {
 
@@ -425,14 +541,14 @@ public class User implements userInterface {
 
     }
 
-    public int checkEmailExists(String email) {
+    public boolean checkEmailExists(String email) {
 
         // first we check if users even exist or not
         File count_file = new File("totalUsers.txt");
         int file_status = FileControl.CheckFile(count_file);
 
         if (file_status == -1 || file_status == 1) // file wasn't present earlier
-            return -1;
+            return false;
 
         // now we know that file exists
         // up to the real work now. Reading file to find the userID ughh
@@ -441,7 +557,7 @@ public class User implements userInterface {
         file_status = FileControl.CheckFile(user_file);
 
         if (file_status == -1 || file_status == 1) // couldn't open file or file wasn't present
-            return -1;
+            return false;
 
         try {
             Scanner scanner = new Scanner(user_file);
@@ -452,7 +568,7 @@ public class User implements userInterface {
                 // information of user
 
                 // skipping useless information
-                String user = scanner.nextLine(); // userID -> in case we'd have to return it
+                scanner.nextLine(); // userID -> we don't need this
                 scanner.nextLine(); // name -> don't need
                 scanner.nextLine(); // DOB -> useless
                 scanner.nextLine(); // password -> nahhh
@@ -462,21 +578,21 @@ public class User implements userInterface {
                     if (data == email) { // user found
 
                         scanner.close();
-                        return Integer.valueOf(user);
+                        return true;
                     }
                 } catch (Exception ex) {
                     continue;
                 }
             }
             scanner.close();
-            return -1;
+            return false;
         } catch (Exception e) {
 
             System.out.println("An error occured in checking for email\n");
             e.printStackTrace();
         }
 
-        return -1;
+        return false;
     }
 
     public int addUser(userDetails user) {
@@ -640,7 +756,7 @@ public class User implements userInterface {
         }
 
         // now we might find the user and have to re-write the file
-        // for that, lets opy all the users in a list first
+        // for that, lets copy all the users in a list first
 
         List<userDetails> temp_list = new LinkedList<userDetails>();
         boolean userFound = false;
@@ -690,6 +806,8 @@ public class User implements userInterface {
         if (!userFound)
             return;
 
+        // before writing back remaining users, lets delete user's apps in user-app record
+        removeInstalledApp(-2, userID);     //this means that all the apps of this user will be deleted
         // time to write back in file
 
         try {
@@ -722,7 +840,7 @@ public class User implements userInterface {
 
         // LocalDate dobby = LocalDate.now();
         // User testing = new User();
-        // userDetails ob = new userDetails("afafa", 13233, dobby, "afaq@gmail.com", "NOOO");
+        // userDetails ob = new userDetails("afafa", 13233, dobby, "afaq2@gmail.com", "NOoo");
         // int userID = testing.addUser(ob);
 
         // for (int i = 1; i < 9; i++) {
@@ -736,8 +854,10 @@ public class User implements userInterface {
         // System.out.println("\nUSER NOT FOUND\n");
         // }
 
-        // testing.removeUser(3);
+        // testing.removeUser(1);
+        // testing.addInstalledApp(3, 1, 2);
+        // testing.removeInstalledApp(2, 1);
 
-        // testing.addInstalledApp(3, 4, 1);
+        // System.out.println(testing.authenticateUser("afaq2@gmail.com", "NOoo"));
     }
 }
