@@ -32,7 +32,7 @@ go
 CREATE TABLE ratings(
 app_ID INT NOT NULL, 
 user_ID INT NOT NULL,
-rating FLOAT NOT NULL, 
+rating INT NOT NULL, 
 FOREIGN KEY(app_ID) REFERENCES app_details(app_ID) ON DELETE CASCADE, 
 FOREIGN KEY(user_ID) REFERENCES user_details(user_ID) ON DELETE CASCADE,
 PRIMARY KEY(app_ID, user_ID)
@@ -54,6 +54,7 @@ go
 CREATE TABLE user_apps(
 app_ID INT NOT NULL, 
 user_ID INT NOT NULL, 
+[version] FLOAT NOT NULL,
 FOREIGN KEY(app_ID) REFERENCES app_details(app_ID) ON DELETE CASCADE,
 FOREIGN KEY(user_ID) REFERENCES user_details(user_ID) ON DELETE CASCADE, 
 PRIMARY KEY(app_ID, user_ID)
@@ -133,6 +134,7 @@ Begin
 	else
 	RAISERROR('Email is incorrect!',16,1)
 End
+
 go
 
 --PROCEDURE FOR REMOVE USER
@@ -153,7 +155,7 @@ END
 
 go
 
--- PROCEDURE FOR AUTHENTICATE USER
+-- PROCEDURE FOR USER authenticate
 create procedure authenticate_user @email varchar(50),@password varchar(20), @userid int output
 as
 Begin
@@ -240,12 +242,19 @@ go
 create procedure add_Installed_App @appId INT ,@userID INT, @ver INT
 as
 Begin
-if(@appId is not null and exists(select * from app_details where @appId = app_details.app_ID and @ver = app_details.version))
+if(@appId is not null and exists(select * from app_details where @appId = app_details.app_ID and @ver = app_details.[version]))
 begin 
 	if(@userID is not null and exists(select * from user_details where @userID = user_details.user_ID))
-	begin 
-		insert into user_apps(app_ID,user_ID) values(@appId, @userID)
-	end
+		if(exists (select * from user_apps where @appId = app_ID and @userID = user_ID))
+			begin 
+				update user_apps
+				set [version] = @ver
+				where app_ID = @appId and @userID = user_ID
+			end
+		else
+			begin
+				insert into user_apps(app_ID,user_ID, [version]) values(@appId, @userID, @ver)
+			end
 	else
 	RAISERROR('User Not Exists',16,1)
 end
@@ -500,6 +509,7 @@ end
 
 go
 
+
 --PROCEDURE FOR UPDATEAPP
 create procedure updateApp @appID int, @name VARCHAR(50) ,@version FLOAT ,@category VARCHAR(50), @content varchar(50)
 as
@@ -524,6 +534,7 @@ begin
 end
 
 go
+
 --PROCEDURE FOR ADD USER DEV
 CREATE PROCEDURE add_user_dev @name varchar(50),@email varchar(50),@password varchar(50),@date_of_birth DATE, @devID int output
 as
@@ -556,6 +567,7 @@ Begin
 	else
 	RAISERROR('Email is incorrect!',16,1)
 End
+
 go
 
 --PROCEDURE FOR REMOVE USER DEV
@@ -614,6 +626,7 @@ end
 
 go
 
+--PROCEDURE for CHECKAPPDEV
 create procedure check_app_dev @devID int, @appID int, @flag int output
 as
 Begin
@@ -627,6 +640,7 @@ end
 
 go 
 
+--PROCEDURE for CHECKEMAILEXISTSDEV
 create procedure check_Email_Exists_dev @email varchar(50), @flag int output
 as
 begin
@@ -640,6 +654,7 @@ end
 
 go
 
+--PROCEDURE for AUTHENTICATE USER DEV
 create procedure authenticate_User_dev @email varchar(50), @pass varchar(50), @devid int output
 as
 begin
@@ -656,6 +671,7 @@ end
 
 go
 
+--PROCEDURE GET DEV APPPS
 create procedure get_Dev_Apps @devID int
 as
 begin
@@ -663,4 +679,27 @@ if(@devID is not null)
 begin
 	select dev_apps.app_ID from dev_apps where dev_apps.dev_ID = @devID
 end
+end
+
+go
+--PROCEDURE FOR GET RATINGS
+create procedure get_ratings @appID int
+as
+begin
+if(@appID is not null and exists(select * from app_details where @appID = app_ID))
+	begin
+		select *from ratings where ratings.app_ID = @appID
+	end
+end
+
+go
+
+--PROCEDURE FOR GET REVIEWS
+create procedure get_reviews @appID int
+as
+begin
+if(@appID is not null and exists(select * from app_details where @appID = app_ID))
+	begin
+		select *from comments where comments.app_ID = @appID
+	end
 end
