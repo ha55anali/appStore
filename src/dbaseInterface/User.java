@@ -175,12 +175,6 @@ public class User implements userInterface {
 
     }
 
-    // NOTE: NUSHIPISHI CODED HERE TOOO
-    // no he didnt. bakwaas function hai yeh. skip krao isko
-    public void setPaymentMethod(int userID, String method) {
-
-    }
-
     // NOTE: YEAH IDER BHI
     // Done :p
     public boolean changeCardDetails(int userID, int cardNo, int NewExpYear) {
