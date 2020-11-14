@@ -270,7 +270,7 @@ public class sqlUserDB implements dbaseInterface.userInterface {
 
             cs.execute();
 
-            return cs.getInt(3) == 1 ? 1 : -1;
+            return cs.getInt(3);
 
         } catch (SQLException e) {
             e.printStackTrace();
