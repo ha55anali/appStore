@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.screens.devPanel.DevPanelController">
+   <children>
+      <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #252a36; -fx-border-width: 0 0 2 0; -fx-border-style: solid; -fx-border-color: #152028;">
+         <children>
+            <Text fill="WHITE" layoutX="422.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="Developer's Panel">
+               <font>
+                  <Font name="Fira Sans Medium" size="19.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="developerProfileButton" fitHeight="30.0" fitWidth="30.0" layoutX="949.0" layoutY="8.0" onMouseClicked="#developerProfileButtonPressed" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/userProfileIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="250.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right, #0f0c29, #302b63, #24243e);;">
+         <children>
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="438.0" layoutY="40.0" onMouseClicked="#publishNewApp" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/publishIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fill="WHITE" layoutX="398.0" layoutY="210.0" onMouseClicked="#publishNewApp" strokeType="OUTSIDE" strokeWidth="0.0" text="Publish New App">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="250.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right, #0f0c29, #302b63, #24243e);;">
+         <children>
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="438.0" layoutY="40.0" onMouseClicked="#updateApp" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/updateIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fill="WHITE" layoutX="380.0" layoutY="208.0" onMouseClicked="#updateApp" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Existing App">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="310.0" prefHeight="250.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right, #0f0c29, #302b63, #24243e);;">
+         <children>
+            <ImageView fitHeight="125.0" fitWidth="125.0" layoutX="449.0" layoutY="40.0" onMouseClicked="#removeApp" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/deleteIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fill="WHITE" layoutX="344.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Remove App from the Store">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

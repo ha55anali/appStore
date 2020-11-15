@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right, #0f0c29, #302b63, #24243e);;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.screens.categoriesList.CategoriesListController">
+   <children>
+      <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #252a36; -fx-border-width: 0 0 2 0; -fx-border-style: solid; -fx-border-color: #152028;">
+         <children>
+            <Text fx:id="headerText" fill="WHITE" layoutX="454.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="Categories">
+               <font>
+                  <Font name="Fira Sans Medium" size="19.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="userProfileIcon" fitHeight="30.0" fitWidth="30.0" layoutX="949.0" layoutY="8.0" onMouseClicked="#userProfileIconClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/userProfileIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="250.0" prefWidth="1000.0">
+         <children>
+            <ImageView fx:id="allAppsIcon" fitHeight="125.0" fitWidth="125.0" layoutX="438.0" layoutY="51.0" onMouseClicked="#allAppsClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/viewAllAppsIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fx:id="allAppsText" fill="WHITE" layoutX="451.0" layoutY="212.0" onMouseClicked="#allAppsClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="All Apps">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="250.0" prefWidth="1000.0">
+         <children>
+            <ImageView fx:id="gamesIcon" fitHeight="125.0" fitWidth="125.0" layoutX="135.0" layoutY="45.0" onMouseClicked="#gamesClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/gamesIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fx:id="gamesText" fill="WHITE" layoutX="157.0" layoutY="211.0" onMouseClicked="#gamesClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Games">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+            <ImageView fx:id="productivityIcon" fitHeight="125.0" fitWidth="125.0" layoutX="732.0" layoutY="45.0" onMouseClicked="#productivityClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/productivityIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fx:id="productivityText" fill="WHITE" layoutX="723.0" layoutY="211.0" onMouseClicked="#productivityClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Productivity">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="10.0" layoutY="310.0" prefHeight="250.0" prefWidth="1000.0">
+         <children>
+            <ImageView fx:id="educationIcon" fitHeight="125.0" fitWidth="125.0" layoutX="135.0" layoutY="45.0" onMouseClicked="#educationClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/educationIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fx:id="educationText" fill="WHITE" layoutX="137.0" layoutY="211.0" onMouseClicked="#educationClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Education">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+            <ImageView fx:id="communicationIcon" fitHeight="125.0" fitWidth="125.0" layoutX="732.0" layoutY="45.0" onMouseClicked="#communicationClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/communicationIcon.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </ImageView>
+            <Text fx:id="communicationText" fill="WHITE" layoutX="699.0" layoutY="211.0" onMouseClicked="#communicationClicked" strokeType="OUTSIDE" strokeWidth="0.0" text="Communication">
+               <font>
+                  <Font name="Fira Sans Condensed Light" size="30.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

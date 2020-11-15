@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.screens.devAppDetails.DevAppDetailsController">
+   <children>
+      <AnchorPane prefHeight="50.0" prefWidth="1000.0" style="-fx-background-color: #252a36; -fx-border-width: 0 0 2 0; -fx-border-style: solid; -fx-border-color: #152028;">
+         <children>
+            <Text fx:id="headerText" fill="WHITE" layoutX="451.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-text-alignment: center;" text="App Details">
+               <font>
+                  <Font name="Fira Sans Medium" size="19.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <VBox prefHeight="750.0" prefWidth="1000.0" style="-fx-background-color: linear-gradient(to right, #0f0c29, #302b63, #24243e);; -fx-alignment: center;">
+         <children>
+            <HBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="App Name: ">
+                     <font>
+                        <Font name="Fira Sans Medium" size="35.0" />
+                     </font>
+                  </Text>
+                  <Region prefHeight="200.0" prefWidth="220.0" />
+                  <TextField fx:id="nameField">
+                     <font>
+                        <Font name="Fira Sans Light" size="30.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="110.0" prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Version: ">
+                     <font>
+                        <Font name="Fira Sans Medium" size="35.0" />
+                     </font>
+                  </Text>
+                  <Region prefHeight="200.0" prefWidth="255.0" />
+                  <Spinner fx:id="versionSpinner" minHeight="55.0" prefWidth="320.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="210.0" prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Category: ">
+                     <font>
+                        <Font name="Fira Sans Medium" size="35.0" />
+                     </font>
+                  </Text>
+                  <Region prefHeight="200.0" prefWidth="235.0" />
+                  <ComboBox fx:id="categoryComboBox" minHeight="55.0" prefWidth="320.0" promptText="Choose Category" visibleRowCount="4" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="349.0" prefHeight="250.0" prefWidth="200.0" style="-fx-alignment: center;">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Description: ">
+                     <font>
+                        <Font name="Fira Sans Medium" size="35.0" />
+                     </font>
+                  </Text>
+                  <Region prefHeight="200.0" prefWidth="200.0" />
+                  <TextArea fx:id="descriptionArea" prefHeight="400.0" prefWidth="320.0">
+                     <font>
+                        <Font name="Fira Sans Light" size="20.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </HBox>
+            <Button fx:id="publishAppButton" mnemonicParsing="false" onAction="#publishAppButtonClicked" style="-fx-background-color: linear-gradient(to right, #283c86, #45a247); -fx-background-radius: 60;" text="Publish App" textFill="WHITE">
+               <font>
+                  <Font name="Fira Sans Light" size="19.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</VBox>
