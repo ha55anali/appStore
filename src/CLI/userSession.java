@@ -46,12 +46,27 @@ public class userSession {
         }
     }
 
+    private void CatListMenu()
+    {
+        showCategories();
+        int choice = Integer.parseInt(cin.nextLine());
+
+        List<blInterface.App> appList= appColObj.showAppsinCategory(appColObj.getCategoryList().get(choice));
+        for (int c=0; c< appList.size(); ++c)
+        {
+            System.out.println(c+ ". "+ appList.get(c).Name);
+        }
+
+        choice = Integer.parseInt(cin.nextLine());
+
+        showAppDetails(choice);
+    }
+
     private void AppListMenu()
     {
         showAppList();
         int choice = Integer.parseInt(cin.nextLine());
         showAppDetails(choice);
-        
     }
 
     private int showMainMenu()
@@ -131,5 +146,16 @@ public class userSession {
         {
             System.out.println(i + ". " + CatList.get(i));
         }
+    }
+
+    private int getChoiceInput(int end)
+    {
+        int choice = Integer.parseInt(cin.nextLine());
+        while (choice <= 0 && choice > end)
+        {
+            choice = Integer.parseInt(cin.nextLine());
+        }
+
+        return choice;
     }
 }
