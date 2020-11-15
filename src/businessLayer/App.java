@@ -96,6 +96,7 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
             if (installedVer == app.Version)
                 return -1;
 
+            dbUser.addInstalledApp(AppID, userID, app.Version);
             return 1;
         }
     }
