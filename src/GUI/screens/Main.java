@@ -1,6 +1,5 @@
 package GUI.screens;
 
-import GUI.screens.appList.AppListController;
 import GUI.screens.loginScreen.LoginScreenController;
 import GUI.screens.splashScreen.SplashScreenController;
 import javafx.animation.FadeTransition;
@@ -38,12 +37,12 @@ public class Main extends Application{
         SplashScreenController splashScreenController = loader_splashScreen.getController();
         ImageView splashScreenLogo = splashScreenController.getLogo();
         Text splashScreenText = splashScreenController.getText();
-        //viewSplashScreen(primaryStage, splashScreenLogo, splashScreenText, root_splashScreen);
+        viewSplashScreen(primaryStage, splashScreenLogo, splashScreenText, root_splashScreen);
 
-        FXMLLoader loader = new FXMLLoader(AppListController.class.getResource("/GUI/screens/devLoginScreen/devLoginScreen.fxml"));
-        Parent root = loader.load();
-        primaryStage.setScene(new Scene(root, 1000, 800));
-        primaryStage.show();
+//        FXMLLoader loader = new FXMLLoader(AppListController.class.getResource("/GUI/screens/devLoginScreen/devLoginScreen.fxml"));
+//        Parent root = loader.load();
+//        primaryStage.setScene(new Scene(root, 1000, 800));
+//        primaryStage.show();
     }
 
     public static void main(String[] args) {
