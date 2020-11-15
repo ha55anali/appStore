@@ -1,4 +1,4 @@
-package database;
+package textbase;
 
 import dbaseInterface.appDetails;
 import dbaseInterface.appInterface;
