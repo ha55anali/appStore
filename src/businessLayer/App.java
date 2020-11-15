@@ -5,7 +5,7 @@ package businessLayer;
 import java.util.*;
 import java.util.Locale.Category;
 
-public class App implements blInterface.individualAppInterface, blInterface.AppCollectionInterface {
+ class App implements blInterface.individualAppInterface, blInterface.AppCollectionInterface {
     dbaseInterface.appInterface dbApp;
     dbaseInterface.userInterface dbUser;
     List<String> CategoryList;

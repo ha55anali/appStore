@@ -2,7 +2,7 @@ package businessLayer;
 
 import java.time.LocalDate;
 
-public class User implements blInterface.userInterface {
+class User implements blInterface.userInterface {
     dbaseInterface.userInterface dbUser;
 
     private boolean stringIsNullOrEmpty(String str) {

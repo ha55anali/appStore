@@ -2,7 +2,7 @@ package businessLayer;
 
 import java.util.*;
 
-public class Dev implements blInterface.devInterface {
+class Dev implements blInterface.devInterface {
     private dbaseInterface.devInterface devObj;
     private dbaseInterface.appInterface appObj;
 
