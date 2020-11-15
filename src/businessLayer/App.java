@@ -74,6 +74,8 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
             throw new IllegalArgumentException("Invalid app");
         else if (!dbUser.checkUserExists(userID)) // valid user
             throw new IllegalArgumentException("Invalid user");
+        else if (dbUser.checkAppInstall(AppID, userID) != -1)
+            throw new IllegalArgumentException("App already installed");
         else {
             dbaseInterface.appDetails app = dbApp.getAppDetails(AppID);
 

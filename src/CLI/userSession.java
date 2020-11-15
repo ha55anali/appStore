@@ -14,6 +14,7 @@ public class userSession {
     blInterface.userInterface userObj;
     blInterface.individualAppInterface indAppObj;
     blInterface.AppCollectionInterface appColObj;
+    List<blInterface.App> appList;
 
     public userSession()
     {
@@ -27,15 +28,21 @@ public class userSession {
 
         while(true)
         {
+            appList = appColObj.showAllApps();
+
             int choice=showMainMenu();
 
             switch (choice)
             {
+                case -1:
+                    System.exit(1);
+                    break;
                 case 1:
                     AppListMenu();
                     break;
                 case 2:
                     CatListMenu();
+                    break;
                 case 3:
                     showUserDetails();
                     break;
@@ -49,24 +56,27 @@ public class userSession {
     private void CatListMenu()
     {
         showCategories();
-        int choice = Integer.parseInt(cin.nextLine());
+        int choice= getChoiceInput(4);
+        if (choice == -1)
+            return;
 
-        List<blInterface.App> appList= appColObj.showAppsinCategory(appColObj.getCategoryList().get(choice));
-        for (int c=0; c< appList.size(); ++c)
+        List<blInterface.App> appCatList= appColObj.showAppsinCategory(appColObj.getCategoryList().get(choice));
+        for (int c=0; c< appCatList.size(); ++c)
         {
-            System.out.println(c+ ". "+ appList.get(c).Name);
+            System.out.println(c+ ". "+ appCatList.get(c).Name);
         }
 
-        choice = Integer.parseInt(cin.nextLine());
-
-        showAppDetails(choice);
+        choice= getChoiceInput(appCatList.size()-1);
+        if (choice != -1)
+            showAppDetails(appCatList.get(choice).AppID);
     }
 
     private void AppListMenu()
     {
         showAppList();
-        int choice = Integer.parseInt(cin.nextLine());
-        showAppDetails(choice);
+        int choice = getChoiceInput(appList.size()-1);
+        if (choice != -1)
+            showAppDetails(appList.get(choice).AppID);
     }
 
     private int showMainMenu()
@@ -74,11 +84,9 @@ public class userSession {
         System.out.println("1. all apps");
         System.out.println("2. app categories");
         System.out.println("3. user details");
+        System.out.println("-1. exit");
 
-        System.out.println("enter choice");
-        int choice = Integer.parseInt(cin.nextLine());
-
-        return choice;
+        return getChoiceInput(3);
     }
 
     private void loginUser()
@@ -104,18 +112,17 @@ public class userSession {
     private void showAppList()
     {
         System.out.println("list of apps");
-        List<blInterface.App> appList=appColObj.showAllApps();
 
         for (int c=0; c< appList.size(); ++c)
         {
             System.out.println(c+ ". "+ appList.get(c).Name);
         }
+        System.out.println("-1: exit");
     }
 
     private void showAppDetails(int appID)
     {
-        List<blInterface.App> appList=appColObj.showAllApps();
-        blInterface.App app= appList.get(appID);
+        blInterface.App app= indAppObj.showDetails(appID);
 
         System.out.println("App Name: " + app.Name);
         System.out.println("Description: " + app.Description);
@@ -126,6 +133,38 @@ public class userSession {
         for ( int c=0; c<app.Reviews.size(); ++c)
         {
             System.out.println("1. "+app.Reviews.get(c));
+        }
+
+        System.out.println("1. install app");
+        System.out.println("2. delete app");
+        System.out.println("3. update app");
+        System.out.println("-1. back");
+        int choice= getChoiceInput(3);
+
+        switch (choice)
+        {
+            case 1:
+                try{
+                    indAppObj.installApp(appID, userID);
+                    System.out.println("installed");
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case 2:
+                if (indAppObj.removeApp(appID, userID)== -1)
+                    System.out.println("app not installed");
+                System.out.println("removed");
+                break;
+            case 3:
+                if (indAppObj.updateApp(appID, userID) == -1)
+                    System.out.println("already on latest version");
+                System.out.println("updated");
+                break;
+            case -1:
+                break;
+
         }
     }
 
@@ -146,12 +185,13 @@ public class userSession {
         {
             System.out.println(i + ". " + CatList.get(i));
         }
+    System.out.println("-1: back ");
     }
 
     private int getChoiceInput(int end)
     {
         int choice = Integer.parseInt(cin.nextLine());
-        while (choice <= 0 && choice > end)
+        while (choice < 0 && choice > end  && choice != -1)
         {
             choice = Integer.parseInt(cin.nextLine());
         }
