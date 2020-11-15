@@ -50,7 +50,8 @@ public class sqlAppDB implements dbaseInterface.appInterface {
     // NOTE: Complete
     public appDetails getAppDetails(int appID) {
         CallableStatement cs;
-        appDetails resultObj = new appDetails(-1, null, null, -1, null, null, -1, null);
+        appDetails resultObj = new appDetails(-1, null, null, -1, null, new ArrayList<Integer>(), -1,
+                new ArrayList<String>());
         this.createConnection();
         try {
             cs = conn.prepareCall("{call appStore.dbo.getAppDetails(?)}");
