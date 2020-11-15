@@ -60,6 +60,10 @@ public class userSession {
                 case 3:
                     showUserDetails();
                     break;
+                case 4:
+                    userObj.removeUser(userID);
+                    System.exit(1);
+                    break;
                 default:
                     System.out.println("invalid choice");
                     break;
@@ -98,6 +102,7 @@ public class userSession {
         System.out.println("1. all apps");
         System.out.println("2. app categories");
         System.out.println("3. user details");
+        System.out.println("4. delete user");
         System.out.println("-1. exit");
 
         return getChoiceInput(3);
