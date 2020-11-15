@@ -13,6 +13,15 @@ public class appDetails
     public List<String> Reviews;
     public String Category;
 
+    public appDetails(){
+        AppID = -1;
+        Name = null;
+        Description = null;
+        Version = -1;
+        avgRatings = -1;
+        Category = null;
+    }
+
     public appDetails(int ID, String AppName, String AppDescription, int Ver, String categ, List<Integer> UserRatings, int aRating, List<String> UserReviews )
     {
         AppID=ID;
