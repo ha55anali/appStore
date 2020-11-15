@@ -43,7 +43,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             // necessary every time we need to call a procedure
             conn = DriverManager.getConnection(dbURL, username, pass);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -69,7 +69,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         try {
@@ -82,7 +82,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         try {
             cs = conn.prepareCall("{call appStore.dbo.get_ratings(?)}");
@@ -96,7 +96,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             return resultObj;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return null;
@@ -119,7 +119,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             return appsList;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         return appsList;
     }
@@ -141,7 +141,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             return appsList;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         return appsList;
     }
@@ -156,7 +156,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             cs.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -173,7 +173,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             cs.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -196,7 +196,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             return appID;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return -1;
@@ -218,7 +218,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             cs.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -234,7 +234,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             cs.execute();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -253,7 +253,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             return cs.getInt(2) == 1 ? true : false;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return false;

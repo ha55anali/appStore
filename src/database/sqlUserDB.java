@@ -64,8 +64,7 @@ public class sqlUserDB implements dbaseInterface.userInterface {
 
             return userID;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
 
         return -1;
@@ -95,7 +94,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -110,8 +108,7 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             cs.setInt(1, userID);
             cs.execute();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
     }
 
@@ -126,7 +123,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             cs.setInt(3, ver);
             cs.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -141,7 +137,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             cs.setInt(2, userID);
             cs.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -162,7 +157,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             return authResult;
 
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return authResult;
     }
@@ -179,7 +173,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             cs.setInt(3, ExpYear);
             cs.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -195,7 +188,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             cs.setInt(3, NewExpYear);
             cs.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -210,7 +202,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             cs.setInt(2, cardNo);
             cs.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
@@ -227,7 +218,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             cs.execute();
             return cs.getInt(3) == 1 ? true : false;
         } catch (SQLException e) {
-            e.printStackTrace();
         }
         return false;
     }
@@ -244,7 +234,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             return cs.getInt(2) == 1 ? true : false;
 
         } catch (SQLException e) {
-            e.printStackTrace();
 
         }
 
@@ -267,7 +256,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             return cs.getInt(3);
 
         } catch (SQLException e) {
-            e.printStackTrace();
 
         }
 
@@ -291,7 +279,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
             return false;
 
         } catch (SQLException e) {
-            e.printStackTrace();
 
         }
         return false;
