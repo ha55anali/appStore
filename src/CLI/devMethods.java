@@ -81,8 +81,9 @@ public class devMethods {
                 while (true) {
                     System.out.flush();
                     System.out.println("Press P to publish new App");
-                    System.out.println("Update an existing App");
-                    System.out.println("Remove an App");
+                    System.out.println("U to Update an existing App");
+                    System.out.println("R to Remove an App");
+                    System.out.println("I to Show your Information");
 
                     Scanner in = new Scanner(System.in);
                     String input = in.nextLine();
@@ -135,14 +136,36 @@ public class devMethods {
                     }
 
                     else if (input.equalsIgnoreCase("U")) {
+                        System.out.println("List of Apps that you created");
+                        List<blInterface.App> devApps= dev.getDevApps(successfull);
+                        for (int i=0; i<devApps.size(); i++){
 
-                        
+                            System.out.println(devApps.get(i).Name + " ("+ devApps.get(i).AppID+ ")" );
+                        }
+                        System.out.println("Enter the appID of the app you want to Update");
+                        int id=in.nextInt();
+
+
 
                     }
 
                     else if (input.equalsIgnoreCase("R")) {
+                        System.out.println("List of Apps that you created");
+                        List<blInterface.App> devApps= dev.getDevApps(successfull);
+                        for (int i=0; i<devApps.size(); i++){
 
-
+                            System.out.println(devApps.get(i).Name + " ("+ devApps.get(i).AppID+ ")" );
+                        }
+                        System.out.println("Enter the appID of the app you want to Remove");
+                        int id=in.nextInt();
+                        dev.removeApp(successfull, id);
+                        System.out.println("App has been removed Successfully");
+                    
+                    }
+                    else if(input.equalsIgnoreCase("I"))
+                    {
+                        System.out.println("---------------Dev Details-------------");
+                        blInterface.userDetails Developer=dev.getDevDetails(successfull);
                     }
 
                     else {
