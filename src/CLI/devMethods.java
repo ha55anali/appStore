@@ -9,6 +9,7 @@ public class devMethods {
 
     int devID;
     blInterface.devInterface dev = businessLayer.blFactory.getDevObject();
+
     public devMethods() {
     }
 
@@ -79,7 +80,7 @@ public class devMethods {
     }
 
     public void categoryPage() {
-        
+
         while (true) {
             System.out.flush();
             System.out.println("Press P to publish new App");
@@ -98,6 +99,7 @@ public class devMethods {
 
                 System.out.println("Enter the version of the App");
                 int version = in.nextInt();
+
                 String categ;
                 while (true) {
                     System.out.println("Select the Category of the App from");
@@ -110,29 +112,26 @@ public class devMethods {
                     if (categ.equalsIgnoreCase("g")) {
                         categ = "Games";
                         break;
-                    } 
-                    else if (categ.equalsIgnoreCase("e")) {
+                    } else if (categ.equalsIgnoreCase("e")) {
                         categ = "Education";
                         break;
-                    } 
-                    else if (categ.equalsIgnoreCase("P")) {
+                    } else if (categ.equalsIgnoreCase("P")) {
                         categ = "Productivity";
                         break;
-                    } 
-                    else if (categ.equalsIgnoreCase("C")) {
+                    } else if (categ.equalsIgnoreCase("C")) {
                         categ = "Communication";
                         break;
-                    } 
-                    else {
+                    } else {
                         System.out.println("Wrong Input. Try Again :)");
                     }
                 }
 
                 System.out.println("Enter description of the App");
                 String desc = in.nextLine();
-                List<Integer> UserRatings = null;
+                List<Integer> UserRatings = new ArrayList<Integer>();
 
-                blInterface.App newApp = new blInterface.App(0, name, desc, version, categ, UserRatings, 0, null);
+                blInterface.App newApp = new blInterface.App(0, name, desc, version, categ, UserRatings, 0,
+                        new ArrayList<String>());
                 dev.addApp(devID, newApp);
                 System.out.println("New App Added Successfully");
             }
@@ -146,36 +145,34 @@ public class devMethods {
                 }
                 System.out.println("Enter the appID of the app you want to Update");
                 int id = in.nextInt();
-                int Appno=0;
-                for (Appno=0; Appno<devApps.size(); Appno++){
-                    if(id==devApps.get(Appno).AppID){
+                int Appno = 0;
+                for (Appno = 0; Appno < devApps.size(); Appno++) {
+                    if (id == devApps.get(Appno).AppID) {
                         System.out.flush();
-                        System.out.println("Name: "+ devApps.get(Appno).Name);
-                        System.out.println("Category: "+ devApps.get(Appno).Category);
-                        System.out.println("Version: "+ devApps.get(Appno).Version);
-                        System.out.println("Description: "+ devApps.get(Appno).Description);
-                        break;                       
+                        System.out.println("Name: " + devApps.get(Appno).Name);
+                        System.out.println("Category: " + devApps.get(Appno).Category);
+                        System.out.println("Version: " + devApps.get(Appno).Version);
+                        System.out.println("Description: " + devApps.get(Appno).Description);
+                        break;
                     }
                 }
-                blInterface.App editedApp=new blInterface.App(devApps.get(Appno).AppID, devApps.get(Appno).Name, devApps.get(Appno).Description, 
-                devApps.get(Appno).Version, devApps.get(Appno).Category, devApps.get(Appno).Ratings, devApps.get(Appno).avgRatings, devApps.get(Appno).Reviews);
-                while(true){
+                blInterface.App editedApp = new blInterface.App(devApps.get(Appno).AppID, devApps.get(Appno).Name,
+                        devApps.get(Appno).Description, devApps.get(Appno).Version, devApps.get(Appno).Category,
+                        devApps.get(Appno).Ratings, devApps.get(Appno).avgRatings, devApps.get(Appno).Reviews);
+                while (true) {
 
                     System.out.println("Press N to edit Name");
                     System.out.println("Press C to edit Category");
                     System.out.println("Press V to edit Version");
                     System.out.println("Press D to edit Description");
-                    
-                   
 
-                    input=in.nextLine();
-                    if(input.equalsIgnoreCase("N")){
+                    input = in.nextLine();
+                    if (input.equalsIgnoreCase("N")) {
                         System.out.println("Enter new Name");
-                        editedApp.Name=in.nextLine();
+                        editedApp.Name = in.nextLine();
                         break;
-                    }
-                    else if(input.equalsIgnoreCase("C")){
-                        
+                    } else if (input.equalsIgnoreCase("C")) {
+
                         while (true) {
                             System.out.println("Select the Category of the App from");
                             System.out.println("G for Games");
@@ -183,43 +180,36 @@ public class devMethods {
                             System.out.println("P for Productivity");
                             System.out.println("C for Communication");
                             input = in.nextLine();
-        
+
                             if (input.equalsIgnoreCase("g")) {
                                 editedApp.Category = "Games";
                                 break;
-                            } 
-                            else if (input.equalsIgnoreCase("e")) {
+                            } else if (input.equalsIgnoreCase("e")) {
                                 editedApp.Category = "Education";
                                 break;
-                            } 
-                            else if (input.equalsIgnoreCase("P")) {
+                            } else if (input.equalsIgnoreCase("P")) {
                                 editedApp.Category = "Productivity";
                                 break;
-                            } 
-                            else if (input.equalsIgnoreCase("C")) {
+                            } else if (input.equalsIgnoreCase("C")) {
                                 editedApp.Category = "Communication";
                                 break;
-                            } 
-                            else {
+                            } else {
                                 System.out.println("Wrong Input. Try Again :)");
                             }
                         }
                         break;
-                    }    
-                        else if(input.equalsIgnoreCase("V")){
-                            System.out.println("Enter the version of the App");
-                            editedApp.Version=in.nextInt();
-                            break;
-                        }
-                        else if(input.equalsIgnoreCase("D")){
-                            System.out.println("Enter the edited description");
-                            editedApp.Description=in.nextLine();
-                            break;
-                        }
-                        else{
+                    } else if (input.equalsIgnoreCase("V")) {
+                        System.out.println("Enter the version of the App");
+                        editedApp.Version = in.nextInt();
+                        break;
+                    } else if (input.equalsIgnoreCase("D")) {
+                        System.out.println("Enter the edited description");
+                        editedApp.Description = in.nextLine();
+                        break;
+                    } else {
                         System.out.println("Wrong Input. Try Again");
                     }
-                    
+
                 }
                 dev.updateApp(devID, editedApp);
 
@@ -241,12 +231,12 @@ public class devMethods {
                 System.out.println("---------------Dev Details-------------");
                 blInterface.userDetails developer = dev.getDevDetails(devID);
                 System.out.flush();
-                System.out.println("Name: "+ developer.Name );
-                System.out.println("Password: "+ developer.password);
-                System.out.println("Email: "+ developer.email );
+                System.out.println("Name: " + developer.Name);
+                System.out.println("Password: " + developer.password);
+                System.out.println("Email: " + developer.email);
 
-                System.out.println("Press any key to get back" );
-                input=in.nextLine();
+                System.out.println("Press any key to get back");
+                input = in.nextLine();
                 break;
             }
 
