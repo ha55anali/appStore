@@ -301,6 +301,79 @@ public class App implements appInterface {
         }
     }
 
+
+    public void addComment(int appID, int userID, String comment) {
+
+        // opening the record file
+        File record = new File("app_ratings.txt");
+        int file_status = FileControl.CheckFile(record);
+
+        if (file_status == -1) // couldn't make file
+            return;
+
+        else { // file created or exists
+
+            // now file has opened. First we'll see if user-app exists already. If yes,
+            // update. Else, append
+
+            /*
+             * Syntax of filing: userID appID rating 0/1 (for comment) comment/null
+             */
+
+            List<String> temp_list = new LinkedList<String>();
+            boolean user_found = false;
+            try {
+                Scanner scanner = new Scanner(record);
+                while (scanner.hasNextLine()) {
+
+                    String temp_userID = scanner.nextLine();
+                    temp_list.add(temp_userID); // userID stored
+                    String temp_appID = scanner.nextLine();
+                    temp_list.add(temp_appID); // appID stored
+                    temp_list.add(scanner.nextLine()); // rating stored
+
+                    if (userID == Integer.valueOf(temp_userID)) { // user-found
+                        if (appID == Integer.valueOf(temp_appID)) { // required user-app found
+
+                            user_found = true;
+                            temp_list.add("1");
+                            temp_list.add(comment); // updated
+                            scanner.nextLine(); // discarding old valuse
+                            scanner.nextLine();
+                        }
+                    } else {
+                        temp_list.add(scanner.nextLine()); // storing the old value of comment
+                        temp_list.add(scanner.nextLine());
+                    }
+                }
+                scanner.close();
+
+                if (!user_found) {
+
+                    FileControl.AppendInFile(record, String.valueOf(userID));
+                    FileControl.AppendInFile(record, String.valueOf(appID));
+                    FileControl.AppendInFile(record, "-1");
+                    FileControl.AppendInFile(record, "1");
+                    FileControl.AppendInFile(record, comment);
+
+                    return;
+                }
+
+                FileWriter writer = new FileWriter(record);
+                for (int i = 0; i < temp_list.size();) {
+
+                    writer.write(temp_list.get(0) + "\n");
+                    temp_list.remove(0);
+                }
+                writer.close();
+
+            } catch (Exception e) {
+                System.out.println("An error occured in writing user file\n");
+                e.printStackTrace();
+            }
+        }
+    }
+
     // can change name
     // version
     // category
