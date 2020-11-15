@@ -158,6 +158,8 @@ public class userSession {
         System.out.println("1. install app");
         System.out.println("2. delete app");
         System.out.println("3. update app");
+        System.out.println("4. add comment");
+        System.out.println("5. add rating");
         System.out.println("-1. back");
         int choice= getChoiceInput(3);
 
@@ -182,6 +184,19 @@ public class userSession {
                     System.out.println("already on latest version");
                 System.out.println("updated");
                 break;
+            case 4:
+                String comment = cin.nextLine();
+                indAppObj.addReview(appID, userID, comment);
+                break;
+            case 5:
+                choice = Integer.parseInt(cin.nextLine());
+                while (choice < 1 && choice > 5 )
+                {
+                    choice = Integer.parseInt(cin.nextLine());
+                }
+                indAppObj.addRating(appID, userID, choice);
+                break;
+
             case -1:
                 break;
 
