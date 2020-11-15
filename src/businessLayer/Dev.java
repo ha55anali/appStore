@@ -12,7 +12,7 @@ public class Dev implements blInterface.devInterface {
     }
 
     public int addDev(blInterface.userDetails dev) {
-        if (Boolean.compare(devObj.checkEmailExists(dev.email), true) == 1) {
+        if (devObj.checkEmailExists(dev.email)) {
             throw new IllegalArgumentException("Email is already in use");
         }
 
@@ -24,7 +24,7 @@ public class Dev implements blInterface.devInterface {
 
     public void removeDev(int devID) {
         // check dev exists
-        if (Boolean.compare(devObj.checkDevExists(devID), false) == 0) {
+        if (!devObj.checkDevExists(devID)) {
             throw new IllegalArgumentException("Dev does not exist");
         }
         devObj.removeUser(devID);
@@ -33,7 +33,7 @@ public class Dev implements blInterface.devInterface {
 
     public void addApp(int devID, blInterface.App newApp) {
         // check dev exists
-        if (Boolean.compare(devObj.checkDevExists(devID), false) == 0) {
+        if (!devObj.checkDevExists(devID)) {
             throw new IllegalArgumentException("Dev does not exist");
         }
 
@@ -46,14 +46,14 @@ public class Dev implements blInterface.devInterface {
 
     public void removeApp(int devID, int appID) {
         // check dev exists
-        if (Boolean.compare(devObj.checkDevExists(devID), false) == 1) {
+        if (!devObj.checkDevExists(devID)) {
             throw new IllegalArgumentException("Dev does not exist");
         }
         // check app exists
-        if (Boolean.compare(appObj.checkAppExists(appID), false) == 1) {
+        if (!appObj.checkAppExists(appID)) {
             throw new IllegalArgumentException("App does not exist");
         }
-        if (Boolean.compare(devObj.checkAppDev(devID, appID), false) == 1) {
+        if (!devObj.checkAppDev(devID, appID)) {
             throw new IllegalArgumentException("Dev has no such app");
         }
         devObj.removeApp(devID, appID);
@@ -61,14 +61,14 @@ public class Dev implements blInterface.devInterface {
 
     public void updateApp(int devID, blInterface.App appDetails) {
         // check dev exists
-        if (Boolean.compare(devObj.checkDevExists(devID), false) == 1) {
+        if (!devObj.checkDevExists(devID)) {
             throw new IllegalArgumentException("Dev does not exist");
         }
         // check app exists
-        if (Boolean.compare(appObj.checkAppExists(appDetails.AppID), false) == 1) {
+        if (!appObj.checkAppExists(appDetails.AppID)) {
             throw new IllegalArgumentException("App does not exist");
         }
-        if (Boolean.compare(devObj.checkAppDev(devID, appDetails.AppID), false) == 1) {
+        if (!devObj.checkAppDev(devID, appDetails.AppID)) {
             throw new IllegalArgumentException("Dev has no such app");
         }
         dbaseInterface.appDetails appDet = new dbaseInterface.appDetails(appDetails.AppID, appDetails.Name,
@@ -94,7 +94,7 @@ public class Dev implements blInterface.devInterface {
 
     public blInterface.userDetails getDevDetails(int devID) {
         // check dev exists
-        if (Boolean.compare(devObj.checkDevExists(devID), false) == 1) {
+        if (!devObj.checkDevExists(devID)) {
             throw new IllegalArgumentException("Dev does not exist");
         }
 

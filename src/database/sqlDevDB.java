@@ -43,7 +43,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             // necessary every time we need to call a procedure
             conn = DriverManager.getConnection(dbURL, username, pass);
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -70,7 +70,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
         return null;
     }
@@ -88,8 +88,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
 
             return cs.getInt(2) == 1 ? true : false;
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
 
         return false;
@@ -115,8 +114,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             return userID;
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
 
         return -1;
@@ -133,8 +131,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             cs.setInt(1, devID);
             cs.execute();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
     }
 
@@ -149,8 +146,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             cs.setInt(2, appID);
             cs.execute();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
     }
 
@@ -165,8 +161,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             cs.setInt(2, appID);
             cs.execute();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+
         }
     }
 
@@ -184,7 +179,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
 
             return cs.getInt(3) == 1 ? true : false;
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return false;
@@ -203,7 +198,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
 
             return cs.getInt(2) == 1 ? true : false;
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return false;
@@ -225,7 +220,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             return cs.getInt(3);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return -1;
@@ -251,7 +246,7 @@ public class sqlDevDB implements dbaseInterface.devInterface {
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+
         }
 
         return appList;

@@ -23,7 +23,7 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
 
     public blInterface.App showDetails(int AppID) {
         // check if valid app
-        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) {
+        if (dbApp.checkAppExists(AppID)) {
             return returnblApp(AppID);
         } else {
             throw new IllegalArgumentException("App does not exist");
@@ -70,9 +70,9 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
     }
 
     public void installApp(int AppID, int userID) {
-        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) // valid app
+        if (!dbApp.checkAppExists(AppID)) // valid app
             throw new IllegalArgumentException("Invalid app");
-        else if (Boolean.compare(dbUser.checkUserExists(userID), true) == 0) // valid user
+        else if (!dbUser.checkUserExists(userID)) // valid user
             throw new IllegalArgumentException("Invalid user");
         else {
             dbaseInterface.appDetails app = dbApp.getAppDetails(AppID);
@@ -83,9 +83,9 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
     }
 
     public int updateApp(int AppID, int userID) {
-        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) // check valid app
+        if (!dbApp.checkAppExists(AppID)) // check valid app
             return -1;
-        else if (Boolean.compare(dbUser.checkUserExists(userID), true) == 0) // valid user
+        else if (!dbUser.checkUserExists(userID)) // valid user
             throw new IllegalArgumentException("Invalid user");
         else {
             // get version of app installed
@@ -101,9 +101,9 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
     }
 
     public int removeApp(int AppID, int userID) {
-        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) // check valid app
+        if (!dbApp.checkAppExists(AppID)) // check valid app
             throw new IllegalArgumentException("Invalid app");
-        else if (Boolean.compare(dbUser.checkUserExists(userID), true) == 0) // valid user
+        else if (!dbUser.checkUserExists(userID)) // valid user
             throw new IllegalArgumentException("Invalid user");
         else {
             // check if user has app installed
@@ -115,9 +115,9 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
     }
 
     public void addReview(int AppID, int userID, String Review) {
-        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) // check valid app
+        if (dbApp.checkAppExists(AppID)) // check valid app
             throw new IllegalArgumentException("Invalid app");
-        else if (Boolean.compare(dbUser.checkUserExists(userID), true) == 0) // valid user
+        else if (dbUser.checkUserExists(userID)) // valid user
             throw new IllegalArgumentException("Invalid user");
         else {
             // check if user has app installed
@@ -128,9 +128,9 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
     }
 
     public void addRating(int AppID, int userID, int rating) {
-        if (Boolean.compare(dbApp.checkAppExists(AppID), true) == 0) // check valid app
+        if (dbApp.checkAppExists(AppID)) // check valid app
             throw new IllegalArgumentException("Invalid app");
-        else if (Boolean.compare(dbUser.checkUserExists(userID), true) == 0) // valid user
+        else if (dbUser.checkUserExists(userID)) // valid user
             throw new IllegalArgumentException("Invalid user");
         else {
             // check if user has app installed
