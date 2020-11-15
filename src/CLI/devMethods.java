@@ -7,6 +7,16 @@ import java.util.*;
 
 public class devMethods {
 
+    public devMethods() {
+    }
+
+    private LocalDate parseDate(String date) {
+        String[] dateObj = date.split("-");
+        LocalDate d = LocalDate.of(Integer.valueOf(dateObj[2]), Integer.valueOf(dateObj[1]),
+                Integer.valueOf(dateObj[0]));
+        return d;
+    }
+
     public int signInPage() {
 
         System.out.println("---------------Welcome to Play Store---------------");
@@ -42,11 +52,10 @@ public class devMethods {
                 String name = in.nextLine();
 
                 System.out.println("Enter your Date of Birth in format dd-MM-yyyy");
-                String dateFormat = "dd-MM-yyyy HH:mm:ss";
+                // String dateFormat = "dd-MM-yyyy HH:mm:ss";
                 String date = in.nextLine();
-                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern(dateFormat);
-                LocalDate dob = LocalDate.parse(date, myFormatObj);
-
+                // DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern(dateFormat);
+                LocalDate dob = parseDate(date); // LocalDate.parse(date, myFormatObj);
                 System.out.println("Enter your email");
                 String email = in.nextLine();
 
@@ -69,8 +78,8 @@ public class devMethods {
 
     public void categoryPage() {
 
-        blInterface.devInterface dev= new businessLayer.Dev();
-        
+        blInterface.devInterface dev = new businessLayer.Dev();
+
         while (true) {
             int successfull = signInPage();
             if (successfull == -1) {
@@ -105,32 +114,29 @@ public class devMethods {
                             System.out.println("C for Communication");
                             categ = in.nextLine();
 
-                            if(categ.equalsIgnoreCase("g")){
-                                categ="Games";
-                                break;    
-                            }
-                            else if(categ.equalsIgnoreCase("e")){
-                                categ="Education";
+                            if (categ.equalsIgnoreCase("g")) {
+                                categ = "Games";
                                 break;
-                            }
-                            else if(categ.equalsIgnoreCase("P")){
-                                categ="Productivity";
+                            } else if (categ.equalsIgnoreCase("e")) {
+                                categ = "Education";
                                 break;
-                            }
-                            else if(categ.equalsIgnoreCase("C")){
-                                categ="Communication";
+                            } else if (categ.equalsIgnoreCase("P")) {
+                                categ = "Productivity";
                                 break;
-                            }
-                            else{
+                            } else if (categ.equalsIgnoreCase("C")) {
+                                categ = "Communication";
+                                break;
+                            } else {
                                 System.out.println("Wrong Input. Try Again :)");
                             }
                         }
 
                         System.out.println("Enter description of the App");
-                        String desc=in.nextLine();
-                        List<Integer>UserRatings=null;
+                        String desc = in.nextLine();
+                        List<Integer> UserRatings = null;
 
-                        blInterface.App newApp=new blInterface.App(0, name, desc, version, categ, UserRatings, 0, null);
+                        blInterface.App newApp = new blInterface.App(0, name, desc, version, categ, UserRatings, 0,
+                                null);
                         dev.addApp(successfull, newApp);
                         System.out.println("New App Added Successfully");
                     }
@@ -146,7 +152,10 @@ public class devMethods {
                         int id=in.nextInt();
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 252cfd2d26e3cc3c7a6721b332c7bfd353bfc758
                     }
 
                     else if (input.equalsIgnoreCase("R")) {
@@ -154,6 +163,7 @@ public class devMethods {
                         List<blInterface.App> devApps= dev.getDevApps(successfull);
                         for (int i=0; i<devApps.size(); i++){
 
+<<<<<<< HEAD
                             System.out.println(devApps.get(i).Name + " ("+ devApps.get(i).AppID+ ")" );
                         }
                         System.out.println("Enter the appID of the app you want to Remove");
@@ -166,6 +176,8 @@ public class devMethods {
                     {
                         System.out.println("---------------Dev Details-------------");
                         blInterface.userDetails Developer=dev.getDevDetails(successfull);
+=======
+>>>>>>> 252cfd2d26e3cc3c7a6721b332c7bfd353bfc758
                     }
 
                     else {

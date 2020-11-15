@@ -25,4 +25,8 @@ public interface individualAppInterface
 
     //if invalid appID, or rating greater than 5, throw exception
     public void addRating(int AppID, int userID, int rating) throws IllegalArgumentException;
+
+    // return app version
+    // -1 if not installed
+    public int checkAppInstalled(int appID, int userID);
 }
