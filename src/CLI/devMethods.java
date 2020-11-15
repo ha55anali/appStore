@@ -255,7 +255,13 @@ public class devMethods {
                 System.out.println("Name: " + developer.Name);
                 System.out.println("Password: " + developer.password);
                 System.out.println("Email: " + developer.email);
-
+                System.out.println("Press 1 to delete Profile");
+                input = in.nextLine();
+                if(input.equalsIgnoreCase("1")){
+                    dev.removeDev(devID);
+                    System.out.println("Developer Deleted");
+                    break;
+                }
                 System.out.println("Press any key to get back");
                 input = in.nextLine();
             }
