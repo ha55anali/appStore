@@ -1,25 +1,10 @@
 package database;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.sql.Date;
+import dbaseInterface.appDetails;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
-
-import javax.naming.spi.DirStateFactory.Result;
-
-import java.beans.Statement;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
-import java.sql.DatabaseMetaData;
-import com.microsoft.sqlserver.jdbc.SQLServerDriver;
-
-import dbaseInterface.*;
 
 public class sqlAppDB implements dbaseInterface.appInterface {
 
@@ -253,7 +238,9 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             cs.registerOutParameter(2, Types.INTEGER);
             cs.execute();
 
-            return cs.getInt(2) == 1 ? true : false;
+            int res=cs.getInt(2);
+
+            return res == 1 ? true : false;
 
         } catch (SQLException e) {
 
