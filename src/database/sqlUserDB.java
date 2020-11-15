@@ -183,12 +183,6 @@ public class sqlUserDB implements dbaseInterface.userInterface {
         }
     }
 
-    // FIXME: Deprecated??? Remove it?
-    // if user or app does not exists, throw invalidargumentexception
-    public void setPaymentMethod(int userID, String method) {
-
-    }
-
     // NOTE: Complete
     public void changeCardDetails(int userID, int cardNo, int NewExpYear) {
         this.createConnection();
