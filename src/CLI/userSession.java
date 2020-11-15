@@ -4,11 +4,6 @@ import java.util.*;
 
 public class userSession {
 
-    public static void main(String args[])
-    {
-        new userSession();
-    }
-
     int userID;
     Scanner cin;
     blInterface.userInterface userObj;
