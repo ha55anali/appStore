@@ -88,10 +88,16 @@ public class devMethods {
             System.out.println("R to Remove an App");
             System.out.println("I to Show your Information");
             System.out.println("S to Show all developer Apps ");
+            System.out.println("E to Logout");
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             
-            if(input.equalsIgnoreCase("S")){
+            if(input.equalsIgnoreCase("E")){
+                System.out.println("Logged out Successfully");
+                break;
+            }
+
+            else if(input.equalsIgnoreCase("S")){
                 System.out.println("List of Apps that you created");
                 List<blInterface.App> devApps = dev.getDevApps(devID);
                 for (int i = 0; i < devApps.size(); i++) {
@@ -99,7 +105,7 @@ public class devMethods {
                     System.out.println(devApps.get(i).Name + " (" + devApps.get(i).AppID + ")");
                 }
             }
-            if (input.equalsIgnoreCase("P")) {
+            else if (input.equalsIgnoreCase("P")) {
 
                 System.out.flush();
                 System.out.println("Enter the name of the App");
@@ -107,6 +113,7 @@ public class devMethods {
 
                 System.out.println("Enter the version of the App");
                 int version = in.nextInt();
+                in.nextLine();
 
                 String categ;
                 while (true) {
@@ -153,6 +160,7 @@ public class devMethods {
                 }
                 System.out.println("Enter the appID of the app you want to Update");
                 int id = in.nextInt();
+                in.nextLine();
                 int Appno = 0;
                 for (Appno = 0; Appno < devApps.size(); Appno++) {
                     if (id == devApps.get(Appno).AppID) {
@@ -209,6 +217,7 @@ public class devMethods {
                     } else if (input.equalsIgnoreCase("V")) {
                         System.out.println("Enter the version of the App");
                         editedApp.Version = in.nextInt();
+                        in.nextLine();
                         break;
                     } else if (input.equalsIgnoreCase("D")) {
                         System.out.println("Enter the edited description");
@@ -245,7 +254,6 @@ public class devMethods {
 
                 System.out.println("Press any key to get back");
                 input = in.nextLine();
-                break;
             }
 
             else {
