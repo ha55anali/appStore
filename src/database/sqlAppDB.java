@@ -131,7 +131,7 @@ public class sqlAppDB implements dbaseInterface.appInterface {
         try {
             CallableStatement cs;
 
-            cs = conn.prepareCall("{call appStore.dbo.getAppsInCatergory(?)}");
+            cs = conn.prepareCall("{call appStore.dbo.getAppsInCategory(?)}");
             cs.setString(1, Category);
             ResultSet rs = cs.executeQuery();
             // rs stores the result of our call
