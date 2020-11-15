@@ -87,10 +87,18 @@ public class devMethods {
             System.out.println("U to Update an existing App");
             System.out.println("R to Remove an App");
             System.out.println("I to Show your Information");
-
+            System.out.println("S to Show all developer Apps ");
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
+            
+            if(input.equalsIgnoreCase("S")){
+                System.out.println("List of Apps that you created");
+                List<blInterface.App> devApps = dev.getDevApps(devID);
+                for (int i = 0; i < devApps.size(); i++) {
 
+                    System.out.println(devApps.get(i).Name + " (" + devApps.get(i).AppID + ")");
+                }
+            }
             if (input.equalsIgnoreCase("P")) {
 
                 System.out.flush();
