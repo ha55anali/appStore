@@ -153,6 +153,9 @@ public class sqlAppDB implements dbaseInterface.appInterface {
             CallableStatement cs;
 
             cs = conn.prepareCall("{call appStore.dbo.addRating(?,?,?)}");
+            cs.setInt(1, appID);
+            cs.setInt(2, userID);
+            cs.setInt(3, rating);
             cs.execute();
 
         } catch (SQLException e) {
