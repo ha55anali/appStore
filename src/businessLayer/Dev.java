@@ -59,20 +59,21 @@ public class Dev implements blInterface.devInterface {
         devObj.removeApp(devID, appID);
     }
 
-    public void updateApp(int devID, int appID, int version) {
+    public void updateApp(int devID, blInterface.App appDetails) {
         // check dev exists
         if (Boolean.compare(devObj.checkDevExists(devID), false) == 1) {
             throw new IllegalArgumentException("Dev does not exist");
         }
         // check app exists
-        if (Boolean.compare(appObj.checkAppExists(appID), false) == 1) {
+        if (Boolean.compare(appObj.checkAppExists(appDetails.AppID), false) == 1) {
             throw new IllegalArgumentException("App does not exist");
         }
-        if (Boolean.compare(devObj.checkAppDev(devID, appID), false) == 1) {
+        if (Boolean.compare(devObj.checkAppDev(devID, appDetails.AppID), false) == 1) {
             throw new IllegalArgumentException("Dev has no such app");
         }
-        dbaseInterface.appDetails appDet = appObj.getAppDetails(appID);
-        appDet.Version = version;
+        dbaseInterface.appDetails appDet = new dbaseInterface.appDetails(appDetails.AppID, appDetails.Name,
+                appDetails.Description, appDetails.Version, appDetails.Category, appDetails.Ratings,
+                appDetails.avgRatings, appDetails.Reviews);
         appObj.updateApp(appDet);
     }
 
