@@ -530,4 +530,107 @@ public class Developer implements devInterface {
     public static void main(String[] args) {
 
     }
+
+    public int authenticateUser(String email, String password) {
+        // first we check if users even exist or not
+        File count_file = new File("totalDevs.txt");
+        int file_status = FileControl.CheckFile(count_file);
+
+        if (file_status == -1 || file_status == 1) // file wasn't present earlier
+            return -1;
+
+        // now we know that file exists
+        // up to the real work now. Reading file to find the email ughh
+
+        File user_file = new File("dev_record.txt");
+        file_status = FileControl.CheckFile(user_file);
+
+        if (file_status == -1 || file_status == 1) // couldn't open file or file wasn't present
+            return -1;
+
+        try {
+            Scanner scanner = new Scanner(user_file);
+            while (scanner.hasNextLine()) { // will read the file till end
+
+                int userID = Integer.valueOf(scanner.nextLine()); // in case we'll have to return it
+
+                // skipping the next 2 lines of name, DOB
+                scanner.nextLine();
+                scanner.nextLine();
+
+                String pass = scanner.nextLine(); // password stored to compare later
+                String data = scanner.nextLine();
+                try {
+
+                    if (data.equals(email)) { // user found
+
+                        // now we have to see if the password matched the given password
+
+                        if (pass.equals(password)) {
+
+                            scanner.close();
+                            return userID;
+                        } else {
+
+                            scanner.close();
+                            return -1;
+                        }
+                    }
+                } catch (Exception ex) {
+                    continue;
+                }
+            }
+            scanner.close();
+            return -1;
+        } catch (Exception e) {
+
+            System.out.println("An error occured in authenticating user\n");
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
+
+    public List<Integer> getDevApps(int devID) {
+        List<Integer> devApps = new ArrayList<Integer>();
+        File app_file = new File("dev_app_record.txt");
+        int file_status = FileControl.CheckFile(app_file);
+
+        if (file_status == -1) // couldn't make file
+            return devApps;
+
+        else { // file opened or created;
+
+            Scanner scanner;
+            try {
+                scanner = new Scanner(app_file);
+
+                while (scanner.hasNextLine()) { // will read the file till end
+
+                    String data = scanner.nextLine();
+                    try {
+                        if (Integer.valueOf(data) == devID) { // user found
+                            String appID = scanner.nextLine();
+                            devApps.add(Integer.valueOf(appID));
+                            scanner.nextLine();
+                            scanner.nextLine();
+                        } else {
+                            scanner.nextLine();
+                            scanner.nextLine();
+                            scanner.nextLine();
+                            scanner.nextLine();
+                        }
+                    } catch (Exception ex) {
+                        continue;
+                    }
+                }
+                scanner.close();
+                return devApps;
+            } catch (FileNotFoundException e) {
+
+            }
+        }
+        return devApps;
+    }
+
 }
