@@ -2,7 +2,16 @@ package CLI;
 
 import java.util.*;
 
+import javax.lang.model.util.ElementScanner6;
+
+import java.time.*;
+
 public class userSession {
+
+    public static void main(String args[])
+    {
+        new userSession();
+    }
 
     int userID;
     Scanner cin;
@@ -19,13 +28,23 @@ public class userSession {
         indAppObj = businessLayer.blFactory.getIndividualAppObject();
         cin = new Scanner(System.in);
 
-        loginUser();
+        System.out.println("enter 1 to login, enter 2 to signup, -1 to exit");
+        int choice = getChoiceInput(2);
+        if (choice == 1)
+            loginUser();
+        else if (choice ==2 )
+        {
+            signUp();
+            loginUser();
+        }
+        else
+            System.exit(1);
 
         while(true)
         {
             appList = appColObj.showAllApps();
 
-            int choice=showMainMenu();
+            choice=showMainMenu();
 
             switch (choice)
             {
@@ -86,6 +105,7 @@ public class userSession {
 
     private void loginUser()
     {
+        System.out.println("login");
         while (userID== -1)
         {
             System.out.println("enter email");
@@ -192,5 +212,37 @@ public class userSession {
         }
 
         return choice;
+    }
+    private LocalDate parseDate(String date) {
+        String[] dateObj = date.split("-");
+        LocalDate d = LocalDate.of(Integer.valueOf(dateObj[2]), Integer.valueOf(dateObj[1]),
+                Integer.valueOf(dateObj[0]));
+        return d;
+    }
+
+    private void signUp()
+    {
+        System.out.println("sign up");
+        while (true) {
+            System.out.flush();
+
+            System.out.println("Enter your Name");
+            String name = cin.nextLine();
+
+            System.out.println("Enter your Date of Birth in format dd-MM-yyyy");
+            String date = cin.nextLine();
+            LocalDate dob = parseDate(date);
+            System.out.println("Enter your email");
+            String email = cin.nextLine();
+
+            System.out.println("Enter your password");
+            String password = cin.nextLine();
+
+            blInterface.userDetails user = new blInterface.userDetails(name, 0, dob, email, password);
+
+            int userId= userObj.addUser(user);
+            if (userId != -1)
+                return;
+        }
     }
 }

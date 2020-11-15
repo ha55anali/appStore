@@ -7,6 +7,10 @@ import java.util.*;
 
 public class devMethods {
 
+    public static void main(String[] args) {
+        new devMethods();
+    }
+
     int devID;
     blInterface.devInterface dev = businessLayer.blFactory.getDevObject();
 
