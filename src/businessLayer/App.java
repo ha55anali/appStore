@@ -149,4 +149,11 @@ public class App implements blInterface.individualAppInterface, blInterface.AppC
 
         return appDet;
     }
+
+    // return app version
+    // -1 if not installed
+    public int checkAppInstalled(int appID, int userID)
+    {
+        return dbUser.checkAppInstall(appID, userID);
+    }
 }
